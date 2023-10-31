@@ -51,5 +51,14 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Specialization::class);
     }
+
+    public function sponsors()
+    {
+        return $this->belongsToMany(Sponsor::class);
+    }
+
+    public function messages() {
+        return $this->hasMany(Message::class);
+    }
     
 }
