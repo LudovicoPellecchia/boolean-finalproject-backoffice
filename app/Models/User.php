@@ -43,7 +43,8 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function profile() {
+    public function profile()
+    {
         return $this->hasOne(Profile::class);
     }
 
@@ -57,8 +58,13 @@ class User extends Authenticatable
         return $this->belongsToMany(Sponsor::class);
     }
 
-    public function messages() {
+    public function messages()
+    {
         return $this->hasMany(Message::class);
     }
-    
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
 }
