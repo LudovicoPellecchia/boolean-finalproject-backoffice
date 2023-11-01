@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Profile;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
@@ -12,7 +14,8 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return view('user.index');
+        $user = User::all();
+        return view('user.index', compact('user'));
     }
 
     /**
@@ -28,7 +31,9 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        return redirect()->route('user.show');
+        $data = $request->all();
+        $user = Profile::create($data);
+        return redirect()->route('user.show', $user->id);
     }
 
     /**
@@ -36,7 +41,8 @@ class ProfileController extends Controller
      */
     public function show(string $id)
     {
-        return view('user.show');
+        $user = Profile::findOrFail($id);
+        return view('user.show', compact("user"));
     }
 
     /**
@@ -44,7 +50,8 @@ class ProfileController extends Controller
      */
     public function edit(string $id)
     {
-        return view('user.edit');
+        $user = Profile::FindOrFail($id);
+        return view('user.edit', compact("user"));
     }
 
     /**
@@ -52,7 +59,10 @@ class ProfileController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        return redirect()->route('user.show');
+        $data = $request->all();
+        $user = Profile::findOrFail($id);
+        $user->update($data);
+        return redirect()->route('user.show', $user->id);
     }
 
     /**
@@ -60,6 +70,8 @@ class ProfileController extends Controller
      */
     public function destroy(string $id)
     {
+        $user = Profile::findOrFail($id);
+        $user->delete();
         return redirect()->route('user.index');
     }
 }
