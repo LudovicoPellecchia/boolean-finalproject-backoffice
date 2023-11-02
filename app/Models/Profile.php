@@ -20,6 +20,11 @@ class Profile extends Model
         'user_id',
     ];
 
+    protected $attributes = [
+        'phone' => '', // Aggiungi il valore di default vuoto
+        'skills' => '',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
