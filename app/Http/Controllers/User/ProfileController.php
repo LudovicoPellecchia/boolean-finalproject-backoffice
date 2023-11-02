@@ -16,7 +16,7 @@ class ProfileController extends Controller
     public function index()
     {
         $user = Auth::user(); // Ottieni l'utente autenticato
-    
+
         if ($user->profile) {
             // Se l'utente ha già creato un profilo, lo reindirizziamo allo "user.show"
             return redirect()->route('user.show', $user->profile->id);
@@ -25,7 +25,7 @@ class ProfileController extends Controller
             return view('user.create', compact('user'));
         }
     }
-    
+
 
     /**
      * Show the form for creating a new resource.
@@ -45,15 +45,23 @@ class ProfileController extends Controller
         $profile = $user->profile()->create($data);
         return redirect()->route('user.show', $profile->id);
     }
-    
+
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        $user = Profile::findOrFail($id);
-        return view('user.show', compact("user"));
+        // Verifico se l'utente è autenticato
+        $authenticatedUser = Auth::user();
+        $profile = Profile::findOrFail($id);
+
+        // Se l'id dell'utente loggato è diverso dalla fk del profilo dell'utente allora l'utente viene reindirizzato alla pagina 404 Not Found
+        if ($authenticatedUser->id !== $profile->user_id) {
+            abort(404);
+        }
+
+        return view('user.show', compact('profile'));
     }
 
     /**
@@ -61,8 +69,15 @@ class ProfileController extends Controller
      */
     public function edit(string $id)
     {
-        $user = Profile::FindOrFail($id);
-        return view('user.edit', compact("user"));
+        $authenticatedUser = Auth::user();
+        $profile = Profile::findOrFail($id);
+
+        // Se l'id dell'utente loggato è diverso dalla fk del profilo dell'utente allora l'utente viene reindirizzato alla pagina 404 Not Found
+        if ($authenticatedUser->id !== $profile->user_id) {
+            abort(404);
+        }
+
+        return view('user.edit', compact('profile'));
     }
 
     /**
