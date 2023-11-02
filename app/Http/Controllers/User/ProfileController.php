@@ -40,7 +40,9 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
+          // Procedo alla validazione dei dati ricevuti
+          $data = $request->validated();
+
         $user = Auth::user(); // Ottieni l'utente autenticato
         $profile = $user->profile()->create($data);
         return redirect()->route('user.show', $profile->id);
