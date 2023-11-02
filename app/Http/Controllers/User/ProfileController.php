@@ -52,11 +52,12 @@ class ProfileController extends Controller
      */
     public function show(string $id)
     {
+        // Verifico se l'utente è autenticato
         $authenticatedUser = Auth::user();
         $profile = Profile::findOrFail($id);
 
+        // Se l'id dell'utente loggato è diverso dalla fk del profilo dell'utente allora l'utente viene reindirizzato alla pagina 404 Not Found
         if ($authenticatedUser->id !== $profile->user_id) {
-            // return redirect()->route('user.show', $authenticatedUser->profile->id);
             abort(404);
         }
 
