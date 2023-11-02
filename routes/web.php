@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\User\ProfileController as UserProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,10 +23,24 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::middleware(['auth', 'verified'])->group(function () {
+    //CREATE
+    Route::get('/user/create', [UserProfileController::class, 'create'])->name('user.create');
+    Route::post('/user', [UserProfileController::class, 'store'])->name('user.store');
+    //READ
+    Route::get('/user', [UserProfileController::class, 'index'])->name('user.index');
+    Route::get('/user/{user}', [UserProfileController::class, 'show'])->name('user.show');
+    //UPDATE
+    Route::get('/user/{user}/edit', [UserProfileController::class, 'edit'])->name('user.edit');
+    Route::put('/user/{user}', [UserProfileController::class, 'update'])->name('user.update');
+    //DELETE
+    Route::delete('/user/{user}', [UserProfileController::class, 'destroy'])->name('user.destroy');
+});
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('user_id') //rendo colonna una Fk
                 ->references('id') //si riferisce alla colonna id
                 ->on("users") //della tabella users
-                ->onDelete('cascade'); 
+                ->onDelete('cascade');
         });
     }
 
@@ -27,6 +27,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('profiles', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
             $table->dropColumn('user_id');
         });
     }

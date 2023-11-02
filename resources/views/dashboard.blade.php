@@ -18,7 +18,11 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+                    <div>
+                        <a href="{{ route('user.index') }}" class="btn btn-primary">Il mio profilo</a>
+                    </div>
                 </div>
+                
             </div>
         </div>
     </div>
