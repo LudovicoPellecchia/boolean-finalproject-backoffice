@@ -69,8 +69,15 @@ class ProfileController extends Controller
      */
     public function edit(string $id)
     {
-        $user = Profile::FindOrFail($id);
-        return view('user.edit', compact("user"));
+        $authenticatedUser = Auth::user();
+        $profile = Profile::findOrFail($id);
+
+        // Se l'id dell'utente loggato è diverso dalla fk del profilo dell'utente allora l'utente viene reindirizzato alla pagina 404 Not Found
+        if ($authenticatedUser->id !== $profile->user_id) {
+            abort(404);
+        }
+
+        return view('user.edit', compact('profile'));
     }
 
     /**
