@@ -24,7 +24,11 @@
     <div>
         <strong>Visible:</strong> {{ $user->visible ? 'Yes' : 'No' }}
     </div>
-    <a href="{{ route('user.index') }}" class="btn btn-primary">Back to List</a>
+
+    <div class="mb-3 mt-3">
+        <a href="{{ route('user.edit', $user->id) }}" class="btn btn-warning">Modifica</a>
+    </div>
+    
     <form action="{{ route('user.destroy', $user->id)}}" method="post">
     @csrf
     @method('DELETE')

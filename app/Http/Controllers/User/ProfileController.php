@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Profile;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
@@ -14,9 +15,17 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $user = User::all();
-        return view('user.index', compact('user'));
+        $user = Auth::user(); // Ottieni l'utente autenticato
+    
+        if ($user->profile) {
+            // Se l'utente ha già creato un profilo, lo reindirizziamo allo "user.show"
+            return redirect()->route('user.show', $user->profile->id);
+        } else {
+            // L'utente non ha creato un profilo, quindi mostriamo la vista "user.index" per crearne uno
+            return view('user.create', compact('user'));
+        }
     }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -32,9 +41,11 @@ class ProfileController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $user = Profile::create($data);
-        return redirect()->route('user.show', $user->id);
+        $user = Auth::user(); // Ottieni l'utente autenticato
+        $profile = $user->profile()->create($data);
+        return redirect()->route('user.show', $profile->id);
     }
+    
 
     /**
      * Display the specified resource.
