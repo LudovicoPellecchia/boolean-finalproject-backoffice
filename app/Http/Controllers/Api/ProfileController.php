@@ -17,7 +17,7 @@ class ProfileController extends Controller
 
     public function show($id)
     {
-        $profiles = Profile::where('id', $id)->with('user')->paginate();
+        $profiles = Profile::where('user_id', $id)->with('user')->paginate();
         return response()->json($profiles);
     }
 
