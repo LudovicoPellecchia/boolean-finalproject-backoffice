@@ -23,6 +23,8 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+
+
 Route::middleware(['auth', 'verified'])->group(function () {
     //CREATE
     Route::get('/user/create', [UserProfileController::class, 'create'])->name('user.create');

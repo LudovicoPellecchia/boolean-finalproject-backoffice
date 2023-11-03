@@ -13,6 +13,13 @@
         <strong>Location:</strong> {{ $profile->location }}
     </div>
     <div>
+        <strong>Specializations:</strong>
+        @foreach ($userSpecializations as $specialization)
+            {{ $specialization->name }}
+        @endforeach
+    </div>
+    
+    <div>
         <strong>Description:</strong> {{ $profile->description }}
     </div>
     <div>
