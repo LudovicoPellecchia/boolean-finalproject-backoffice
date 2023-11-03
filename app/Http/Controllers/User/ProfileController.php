@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Profile;
+use App\Models\Specialization;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -32,7 +33,10 @@ class ProfileController extends Controller
      */
     public function create()
     {
-        return view('user.create');
+        $specializations = Specialization::all();
+        
+
+        return view('user.create', compact('specializations'));
     }
 
     /**
@@ -43,7 +47,15 @@ class ProfileController extends Controller
         $data = $request->all();
         $user = Auth::user(); // Ottieni l'utente autenticato
         $profile = $user->profile()->create($data);
+
+        if (key_exists('specializations', $data)){
+            $user->specializations()->attach($request["specializations"]);
+        };
+
         return redirect()->route('user.show', $profile->id);
+
+
+
     }
 
 
@@ -61,7 +73,11 @@ class ProfileController extends Controller
             abort(404);
         }
 
-        return view('user.show', compact('profile'));
+
+        //recupero le specializzazioni dell'utente autenticato
+        $userSpecializations = $authenticatedUser->specializations;
+
+        return view('user.show', compact('profile', 'userSpecializations'));
     }
 
     /**
@@ -71,13 +87,18 @@ class ProfileController extends Controller
     {
         $authenticatedUser = Auth::user();
         $profile = Profile::findOrFail($id);
+        $specializations = Specialization::all();
+
 
         // Se l'id dell'utente loggato è diverso dalla fk del profilo dell'utente allora l'utente viene reindirizzato alla pagina 404 Not Found
         if ($authenticatedUser->id !== $profile->user_id) {
             abort(404);
         }
 
-        return view('user.edit', compact('profile'));
+        //recupero le specializzazioni dell'utente autenticato
+        $userSpecializations = $authenticatedUser->specializations;
+
+        return view('user.edit', compact('profile', 'userSpecializations', 'specializations'));
     }
 
     /**
@@ -86,7 +107,14 @@ class ProfileController extends Controller
     public function update(Request $request, string $id)
     {
         $data = $request->all();
+        //qui si recupera il PROFILO (nonostante la variabile si chiami user)
         $user = Profile::findOrFail($id);
+
+        //recupero l'UTENTE (nonostante la variabile si chiami profile) 
+        $profile = $user->user;
+
+        $profile->specializations()->sync($request->input('specializations', []));
+
         $user->update($data);
         return redirect()->route('user.show', $user->id);
     }

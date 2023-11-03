@@ -17,6 +17,17 @@
             <label for="location">Location:</label>
             <input type="text" class="form-control" name="location" required>
         </div>
+        
+{{--         <div class="form-group">
+            <label for="specializations">Specializations:</label>
+
+            @foreach ($specializations as $specialization)
+                <input class="form-check-input" type="checkbox" name="specializations[]" id="{{$specialization->id}}"
+                    value="{{$specialization->id}}">
+                <label class="form-check-label" for="{{$specialization->id}}">{{$specialization->name}}</label>
+            @endforeach --}}
+        </div>
+
         <div class="form-group">
             <label for="description">Description:</label>
             <textarea class="form-control" name="description" required></textarea>
