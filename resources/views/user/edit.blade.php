@@ -6,7 +6,7 @@
 
         <h2 class="mb-4">Edit Profile</h2>
 
-        <form method="post" action="{{ route('user.update', ['user' => $profile->id]) }}">
+        <form action="{{ route('user.update', ['user' => $profile->id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('put')
 
@@ -14,7 +14,7 @@
             <div class="form-group mb-4">
 
                 <label for="photo" class="form-label">Photo:</label>
-                <input type="text" class="form-control @error('photo') is-invalid @enderror" id="photo" placeholder="Inserisci la tua immagine del profilo" name="photo" value={{ $profile->photo }}>
+                <input type="file" accept="image/*"  class="form-control @error('photo') is-invalid @enderror" id="photo" name="photo">
 
                 @error('photo')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -51,7 +51,7 @@
             <div class="form-group mb-4">
 
                 <label for="description" class="form-label">Description:</label>
-                <textarea class="form-control @error('description') is-invalid @enderror" id="description" placeholder="Inserisci una tua breve descrizione"  name="description">{{ $profile->description }}</textarea>
+                <textarea class="form-control @error('description') is-invalid @enderror" id="description" placeholder="Inserisci una tua breve descrizione" name="description">{{ $profile->description }}</textarea>
 
                 @error('description')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -74,8 +74,12 @@
             {{-- Curriculum  --}}
             <div class="form-group mb-4">
 
-                <label for="curriculum">Curriculum:</label>
-                <input type="text" class="form-control" name="curriculum" value="{{ $profile->curriculum }}">
+                <label for="curriculum" class="form-label">Curriculum:</label>
+                <input type="file" class="form-control @error('curriculum') is-invalid @enderror" name="curriculum">
+
+                @error('curriculum')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
 
             </div>
 

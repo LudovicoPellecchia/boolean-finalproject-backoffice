@@ -6,15 +6,14 @@
 
         <h2 class="mb-4">Create Profile</h2>
 
-        <form method="post" action="{{ route('user.store') }}">
+        <form action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             {{-- Photo --}}
             <div class="form-group mb-4">
 
                 <label for="photo" class="form-label">Photo:</label>
-                <input type="text" class="form-control @error('photo') is-invalid @enderror" id="photo"
-                    placeholder="Inserisci la tua immagine del profilo" name="photo" value="{{ old('photo') }}">
+                <input type="file" accept="image/*" class="form-control @error('photo') is-invalid @enderror" id="photo" name="photo">
 
                 @error('photo')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -76,8 +75,14 @@
 
             {{-- Curriculum --}}
             <div class="form-group mb-4">
-                <label for="curriculum">Curriculum:</label>
-                <input type="text" class="form-control" name="curriculum">
+
+                <label for="curriculum" class="form-label">Curriculum:</label>
+                <input type="file" class="form-control  @error('curriculum') is-invalid @enderror" name="curriculum">
+
+                @error('curriculum')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+
             </div>
 
             {{-- Visible --}}

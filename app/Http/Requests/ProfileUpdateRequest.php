@@ -18,12 +18,12 @@ class ProfileUpdateRequest extends FormRequest {
             'name' => ['required', 'string', 'max:255'],
             'surname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
-            "photo" => "nullable|image|mimes:jpeg,png,jpg,svg,gif",
+            "photo" => "nullable|image|mimes:jpeg,png,jpg",
             "phone" => "required|string|max:15",
             "location" => "required|string|max:50",
             "description" => "nullable|string|max:500",
             "skills" => "required|string|max:250",
-            "curriculum" => "nullable|file",
+            "curriculum" => "nullable|file|mimes:pdf",
             "visible" => "boolean"
         ];
     }
@@ -36,12 +36,12 @@ class ProfileUpdateRequest extends FormRequest {
 
         return [
 
-            'photo.image' => "L'immagine inserita deve essere in formato (jpeg,png,jpg,svg,gif)",
+            'photo.image' => "L'immagine inserita deve essere in formato (jpeg,png,jpg)",
             'phone.required' => "Il numero di telefono è obbligatorio",
             'location.required' => "Inserisci la città in cui vivi",
             'description.max' => "La descrizione non deve superare i 500 caratteri (spazi compresi)",
             'skills.required' => "Inserisci almeno una tua competenza",
-            'curriculum.file' => "L'allegato non è un file caricato",
+            'curriculum.file' => "Il file caricato non è in formato pdf",
 
         ];
     }

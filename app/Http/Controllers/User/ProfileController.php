@@ -9,6 +9,7 @@ use App\Models\Profile;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -42,8 +43,19 @@ class ProfileController extends Controller
      */
     public function store(ProfileStoreRequest $request)
     {
-          // Procedo alla validazione dei dati ricevuti
-          $data = $request->validated();
+        // Procedo alla validazione dei dati ricevuti
+        $data = $request->validated();
+
+        // Salvo il file nel filesystem
+        //Con il metodo put(), viene ritornato il path del file salvato con un codice univoco
+        $curriculum_path = Storage::put("files", $data["curriculum"]);
+        $image_path = Storage::put("images", $data["photo"]);
+
+        // Sovrascrivo il record "curriculum" con il nuovo path generato che poi verrà salvato sul db
+        $data['curriculum'] = $curriculum_path;
+        $data['photo'] = $image_path;
+        
+        // dd($curriculum_path, $image_path ); OK 
 
         $user = Auth::user(); // Ottieni l'utente autenticato
         $profile = $user->profile()->create($data);
@@ -89,8 +101,40 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request, string $id)
     {
-        $data = $request->all();
         $user = Profile::findOrFail($id);
+        $data = $request->validated();
+
+        // Se l'immagine viene modificata mi viene passata la chiave 'photo' altrimenti la chiave non viene passata e non viene settata
+        if (isset($data['photo'])) {
+
+            // Se voglio modificare l'immagine prima di inserire una nuova immagine cancello quella originale
+            if ($user->photo) {
+                Storage::delete($user->photo);
+            }
+
+            $image_path = Storage::put("images", $data["photo"]);
+            $data['photo'] = $image_path;
+
+            dd($image_path);
+
+        }
+
+        // Se il file viene modificato mi viene passata la chiave 'curriculum' altrimenti la chiave non viene passata e non viene settata
+        if (isset($data['photo'])) {
+
+            // Se voglio modificare il file prima di inserire un nuovo file cancello quello originale
+            if ($user->curriculum) {
+                Storage::delete($user->curriculum);
+            }
+
+            $curriculum_path = Storage::put("files", $data["curriculum"]);
+            $data['curriculum'] = $curriculum_path;
+
+        }
+        
+        dd($curriculum_path, $image_path);
+        dd($curriculum_path, $image_path);
+        
         $user->update($data);
         return redirect()->route('user.show', $user->id);
     }

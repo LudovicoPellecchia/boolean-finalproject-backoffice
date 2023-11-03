@@ -25,12 +25,12 @@ class ProfileStoreRequest extends FormRequest
 
         return [
 
-            "photo" => "nullable|image|mimes:jpeg,png,jpg,svg,gif",
+            "photo" => "nullable|file|mimes:jpeg,png,jpg",
             "phone" => "required|string|max:15",
             "location" => "required|string|max:50",
             "description" => "nullable|string|max:500",
             "skills" => "required|string|max:250",
-            "curriculum" => "nullable|file",
+            "curriculum" => "nullable|file|mimes:pdf",
             "visible"=> "boolean"
             
         ];
@@ -45,12 +45,12 @@ public function messages(): array {
 
     return [
         
-        'photo.image' => "L'immagine inserita deve essere in formato (jpg, jpeg, png, bmp, gif, svg)",
+        'photo.file' => "L'immagine inserita deve essere in formato (jpeg,png,jpg)",
         'phone.required' => "Il numero di telefono è obbligatorio",
         'location.required' => "Inserisci la città in cui vivi",
         'description.max' => "La descrizione non deve superare i 500 caratteri (spazi compresi)",
         'skills.required' => "Inserisci almeno una tua competenza",
-        'curriculum.file' => "L'allegato non è un file caricato",
+        'curriculum.file' => "Il file caricato non è in formato pdf",
         'visible.boolean' => "Seleziona almeno una delle due opzioni", 
         
     ];
