@@ -35,6 +35,7 @@ class ProfileController extends Controller
     {
         $specializations = Specialization::all();
         
+        
 
         return view('user.create', compact('specializations'));
     }
@@ -47,10 +48,6 @@ class ProfileController extends Controller
         $data = $request->all();
         $user = Auth::user(); // Ottieni l'utente autenticato
         $profile = $user->profile()->create($data);
-
-        if (key_exists('specializations', $data)){
-            $user->specializations()->attach($request["specializations"]);
-        };
 
         return redirect()->route('user.show', $profile->id);
 
@@ -126,6 +123,6 @@ class ProfileController extends Controller
     {
         $user = Profile::findOrFail($id);
         $user->delete();
-        return redirect()->route('user.index');
+        return redirect()->route('user.create');
     }
 }
