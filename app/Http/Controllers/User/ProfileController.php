@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProfileStoreRequest;
+use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\Profile;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -38,7 +40,7 @@ class ProfileController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProfileStoreRequest $request)
     {
           // Procedo alla validazione dei dati ricevuti
           $data = $request->validated();
@@ -85,7 +87,7 @@ class ProfileController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ProfileUpdateRequest $request, string $id)
     {
         $data = $request->all();
         $user = Profile::findOrFail($id);
