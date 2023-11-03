@@ -85,7 +85,6 @@
                 <label for="visible" class="form-label">Visible:</label>
                 <select type="select" class="form-select @error('visible') is-invalid @enderror" id="visible"
                     name="visible" value="{{ $profile->visible }}">
-                    <option hidden>Seleziona la tipologia</option>
                     <option value="1" {{ $profile->visible == 1 ? 'selected' : '' }}>Si</option>
                     <option value="0" {{ $profile->visible == 0 ? 'selected' : '' }}>No</option>
                 </select>

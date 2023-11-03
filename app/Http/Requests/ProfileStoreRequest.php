@@ -25,7 +25,7 @@ class ProfileStoreRequest extends FormRequest
 
         return [
 
-            "photo" => "nullable|image|",
+            "photo" => "nullable|image|mimes:jpeg,png,jpg,svg,gif",
             "phone" => "required|string|max:15",
             "location" => "required|string|max:50",
             "description" => "nullable|string|max:500",
@@ -45,7 +45,7 @@ public function messages(): array {
 
     return [
         
-        'photo.image' => "L'immagine inserita deve essere in formato (jpg, jpeg, png, bmp, gif, svg, or webp)",
+        'photo.image' => "L'immagine inserita deve essere in formato (jpg, jpeg, png, bmp, gif, svg)",
         'phone.required' => "Il numero di telefono è obbligatorio",
         'location.required' => "Inserisci la città in cui vivi",
         'description.max' => "La descrizione non deve superare i 500 caratteri (spazi compresi)",
