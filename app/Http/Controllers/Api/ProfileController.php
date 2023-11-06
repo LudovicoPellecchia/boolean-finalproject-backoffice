@@ -15,10 +15,19 @@ class ProfileController extends Controller
         return response()->json($users);
     }
 
-    public function show($id)
-    {
-        $profiles = Profile::where('user_id', $id)->with('user')->paginate();
-        return response()->json($profiles);
-    }
+public function show($id)
+{
+    $profiles = Profile::where('user_id', $id)->with('user')->paginate();
+    $users = User::where('id', $id)->with('specializations')->paginate();
+
+    // Creare un array associativo con i dati che desideri restituire
+    $data = [
+        'profiles' => $profiles,
+        'users' => $users,
+    ];
+
+    return response()->json($data);
+}
+
 
 }

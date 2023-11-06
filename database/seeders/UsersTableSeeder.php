@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class UsersTableSeeder extends Seeder
 {
@@ -15,6 +16,15 @@ class UsersTableSeeder extends Seeder
      */
     public function run(): void
     {
+
+                        // Disabilita temporaneamente i vincoli di chiave esterna
+                        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+
+                        // Esegui la query per eliminare i dati
+                        DB::table('users')->truncate();
+                
+                        // Riabilita i vincoli di chiave esterna
+                        DB::statement('SET FOREIGN_KEY_CHECKS=1');
         $users = [
         
             [
