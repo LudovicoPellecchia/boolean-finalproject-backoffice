@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Profile;
+use App\Models\Specialization;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -33,5 +34,17 @@ class ProfileController extends Controller
         ];
 
         return response()->json($data);
+    }
+
+
+    public function specializationUserFilter($categoryName)
+    {
+        // Cerca la categoria corrispondente nel modello Specialization
+        $specialization = Specialization::where('name', $categoryName)->first();
+
+        // Ottieni gli utenti associati a questa categoria
+        $users = $specialization->users()->with('profile')->get();
+
+        return response()->json(['data' => $users]);
     }
 }
