@@ -40,7 +40,7 @@
                         </div>
 
                         <div class="mb-4 row">
-                            <label for="location" class="col-md-4 col-form-label text-md-right">{{ __('Indirizzo') }}<span class="text-danger">*</span></label>
+                            <label for="location" class="col-md-4 col-form-label text-md-right">{{ __('Location') }}<span class="text-danger">*</span></label>
 
                             <div class="col-md-6">
                                 <input id="location" type="text" class="form-control @error('location') is-invalid @enderror" name="location" value="{{ old('location') }}" required autocomplete="location" autofocus>

@@ -4,7 +4,8 @@
 <div class="container pt-5">
     <h2>Profile Details</h2>
     <div>
-        <strong>Photo:</strong> {{ $profile->photo }}
+        <strong>Photo:</strong>
+        <img src="{{asset('storage/'. $profile->photo)}}" alt="">
     </div>
     <div>
         <strong>Phone:</strong> {{ $profile->phone }}
