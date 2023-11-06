@@ -115,11 +115,17 @@ class ProfileController extends Controller
         $data = $request->validated();
         $user = Profile::findOrFail($id);
 
-        $curriculum_path = Storage::put("files", $data["curriculum"]);
-        $image_path = Storage::put("images", $data["photo"]);
 
-        $data['curriculum'] = $curriculum_path;
-        $data['photo'] = $image_path;
+        if (isset($data['photo'])) {
+            $image_path = Storage::put("images", $data["photo"]);
+            $data['photo'] = $image_path;
+        }
+
+        if (isset($data['curriculum'])) {
+            $curriculum_path = Storage::put("files", $data["curriculum"]);
+            $data['curriculum'] = $curriculum_path;
+        }
+
 
         $profile = $user->user;
         $profile->specializations()->sync($request->input('specializations', []));
@@ -129,6 +135,14 @@ class ProfileController extends Controller
             // Se voglio modificare l'immagine prima di inserire una nuova immagine cancello quella originale
             if ($user->photo) {
                 Storage::delete($user->photo);
+            }
+        }
+
+        if (isset($data['curriculum'])) {
+
+            // Se voglio modificare l'immagine prima di inserire una nuova immagine cancello quella originale
+            if ($user->curriculum) {
+                Storage::delete($user->curriculum);
             }
         }
 

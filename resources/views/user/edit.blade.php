@@ -13,6 +13,10 @@
             <div class="form-group mb-4">
 
                 <label for="photo" class="form-label">Photo<span class="text-danger">*</span>:</label>
+                @if ($profile->photo)
+                    <img src="{{ asset('/storage/' . $profile->photo) }}" alt=""
+                        class="img-fluid border border-danger my-2 p-1" style="width: 100px">
+                @endif
                 <input type="file" accept="image/*" class="form-control @error('photo') is-invalid @enderror"
                     id="photo" name="photo">
 
