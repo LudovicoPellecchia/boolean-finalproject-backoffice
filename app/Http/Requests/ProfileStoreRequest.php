@@ -11,17 +11,18 @@ class ProfileStoreRequest extends FormRequest
      * Determine if the user is authorized to make this request.
      */
 
-    public function authorize(): bool {
+    public function authorize(): bool
+    {
 
         return true;
-
     }
 
     /**
      * Get the validation rules that apply to the request.
      */
 
-    public function rules(): array {
+    public function rules(): array
+    {
 
         return [
 
@@ -32,31 +33,29 @@ class ProfileStoreRequest extends FormRequest
             "description" => "nullable|string|max:500",
             "skills" => "required|string|max:250",
             "curriculum" => "nullable|file|mimes:pdf",
-            "visible"=> "boolean"
-            
-        ];
+            "visible" => "boolean"
 
+        ];
     }
 
-/**
- * Get the error messages for the defined validation rules.
- */
+    /**
+     * Get the error messages for the defined validation rules.
+     */
 
-public function messages(): array {
+    public function messages(): array
+    {
 
-    return [
-        
-        'photo.file' => "L'immagine inserita deve essere in formato (jpeg,png,jpg)",
-        'phone.required' => "Il numero di telefono è obbligatorio",
-        'location.required' => "Inserisci la città in cui vivi",
-        'specializations.required' => "Seleziona almeno una specializzazione",
-        'description.max' => "La descrizione non deve superare i 500 caratteri (spazi compresi)",
-        'skills.required' => "Inserisci almeno una tua competenza",
-        'curriculum.file' => "Il file caricato non è in formato pdf",
-        'visible.boolean' => "Seleziona almeno una delle due opzioni", 
-        
-    ];
+        return [
 
-}
+            'photo.file' => "L'immagine inserita deve essere in formato (jpeg,png,jpg)",
+            'phone.required' => "Il numero di telefono è obbligatorio",
+            'location.required' => "Inserisci la città in cui vivi",
+            'specializations.required' => "Seleziona almeno una specializzazione",
+            'description.max' => "La descrizione non deve superare i 500 caratteri (spazi compresi)",
+            'skills.required' => "Inserisci almeno una tua competenza",
+            'curriculum.file' => "Il file caricato non è in formato pdf",
+            'visible.boolean' => "Seleziona almeno una delle due opzioni",
 
+        ];
+    }
 }

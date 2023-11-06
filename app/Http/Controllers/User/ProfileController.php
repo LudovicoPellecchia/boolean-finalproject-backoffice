@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ProfileStoreRequest;
-use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\Profile;
 use App\Models\Specialization;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\ProfileStoreRequest;
+use App\Http\Requests\ProfileUpdateRequest;
 
 class ProfileController extends Controller
 {
@@ -37,8 +37,6 @@ class ProfileController extends Controller
     public function create()
     {
         $specializations = Specialization::all();
-        
-        
 
         return view('user.create', compact('specializations'));
     }
@@ -59,14 +57,11 @@ class ProfileController extends Controller
         // Sovrascrivo il record "curriculum" con il nuovo path generato che poi verrà salvato sul db
         $data['curriculum'] = $curriculum_path;
         $data['photo'] = $image_path;
-        
-        // dd($curriculum_path, $image_path ); OK 
 
         $user = Auth::user(); // Ottieni l'utente autenticato
         $profile = $user->profile()->create($data);
 
         return redirect()->route('user.show', $profile->id);
-
     }
 
 
@@ -84,8 +79,7 @@ class ProfileController extends Controller
             abort(404);
         }
 
-
-        //recupero le specializzazioni dell'utente autenticato
+        // Recupero le specializzazioni dell'utente autenticato
         $userSpecializations = $authenticatedUser->specializations;
 
         return view('user.show', compact('profile', 'userSpecializations'));
@@ -98,16 +92,17 @@ class ProfileController extends Controller
     {
         $authenticatedUser = Auth::user();
         $profile = Profile::findOrFail($id);
+
+        // Recupera le specializzazioni dell'utente autenticato
+        $userSpecializations = $authenticatedUser->specializations;
+
+        // Recupera tutte le specializzazioni disponibili
         $specializations = Specialization::all();
 
-
-        // Se l'id dell'utente loggato è diverso dalla fk del profilo dell'utente allora l'utente viene reindirizzato alla pagina 404 Not Found
+        // Se l'id dell'utente loggato è diverso dalla fk del profilo dell'utente, reindirizza alla pagina 404 Not Found
         if ($authenticatedUser->id !== $profile->user_id) {
             abort(404);
         }
-
-        //recupero le specializzazioni dell'utente autenticato
-        $userSpecializations = $authenticatedUser->specializations;
 
         return view('user.edit', compact('profile', 'userSpecializations', 'specializations'));
     }
@@ -117,49 +112,29 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request, string $id)
     {
-        
         $data = $request->validated();
-        //qui si recupera il PROFILO (nonostante la variabile si chiami user)
         $user = Profile::findOrFail($id);
 
-        //recupero l'UTENTE (nonostante la variabile si chiami profile) 
-        $profile = $user->user;
+        $curriculum_path = Storage::put("files", $data["curriculum"]);
+        $image_path = Storage::put("images", $data["photo"]);
 
+        $data['curriculum'] = $curriculum_path;
+        $data['photo'] = $image_path;
+
+        $profile = $user->user;
         $profile->specializations()->sync($request->input('specializations', []));
 
-        // Se l'immagine viene modificata mi viene passata la chiave 'photo' altrimenti la chiave non viene passata e non viene settata
         if (isset($data['photo'])) {
 
             // Se voglio modificare l'immagine prima di inserire una nuova immagine cancello quella originale
             if ($user->photo) {
                 Storage::delete($user->photo);
             }
-
-            $image_path = Storage::put("images", $data["photo"]);
-            $data['photo'] = $image_path;
-
-            dd($image_path);
-
         }
 
-        // Se il file viene modificato mi viene passata la chiave 'curriculum' altrimenti la chiave non viene passata e non viene settata
-        if (isset($data['photo'])) {
-
-            // Se voglio modificare il file prima di inserire un nuovo file cancello quello originale
-            if ($user->curriculum) {
-                Storage::delete($user->curriculum);
-            }
-
-            $curriculum_path = Storage::put("files", $data["curriculum"]);
-            $data['curriculum'] = $curriculum_path;
-
-            dd($curriculum_path);
-        }
-        
         $user->update($data);
         return redirect()->route('user.show', $user->id);
     }
-
     /**
      * Remove the specified resource from storage.
      */
