@@ -9,25 +9,29 @@ use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
-    public function index(){
-        $users = User::with('specializations')->paginate();
+    // public function index(){
+    //     $users = User::with('specializations')->paginate();
 
-        return response()->json($users);
+    //     return response()->json($users);
+    // }
+
+    public function index()
+    {
+        $users = User::with('profile', 'specializations')->get();
+        return response()->json(['data' => $users]);
     }
 
-public function show($id)
-{
-    $profiles = Profile::where('user_id', $id)->with('user')->paginate();
-    $users = User::where('id', $id)->with('specializations')->paginate();
+    public function show($id)
+    {
+        $profiles = Profile::where('user_id', $id)->with('user')->paginate();
+        $users = User::where('id', $id)->with('specializations')->paginate();
 
-    // Creare un array associativo con i dati che desideri restituire
-    $data = [
-        'profiles' => $profiles,
-        'users' => $users,
-    ];
+        // Creare un array associativo con i dati che desideri restituire
+        $data = [
+            'profiles' => $profiles,
+            'users' => $users,
+        ];
 
-    return response()->json($data);
-}
-
-
+        return response()->json($data);
+    }
 }

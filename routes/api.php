@@ -26,6 +26,7 @@ Route::get("users", [ProfileController::class, "index"]);
 
 //rotta api che ritorna il json con i dati di un singolo
 Route::get("profile/{id}", [ProfileController::class, "show"]);
+Route::get("profile", [ProfileController::class, "index"]);
 
 
 Route::get("specialization", [SpecializationController::class, "index"]);
