@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Profile;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ProfilesTableSeeder extends Seeder
 {
@@ -13,6 +14,16 @@ class ProfilesTableSeeder extends Seeder
      */
     public function run(): void
     {
+
+                // Disabilita temporaneamente i vincoli di chiave esterna
+                DB::statement('SET FOREIGN_KEY_CHECKS=0');
+
+                // Esegui la query per eliminare i dati
+                DB::table('profiles')->truncate();
+        
+                // Riabilita i vincoli di chiave esterna
+                DB::statement('SET FOREIGN_KEY_CHECKS=1');
+                
         $profiles = [
             [
                 "user_id" => 1,

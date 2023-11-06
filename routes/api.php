@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ProfileController;
+use App\Http\Controllers\Api\SpecializationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //rotta api che ritorna il json con i dati recuperati
 Route::get("users", [ProfileController::class, "index"]);
 
-
 //rotta api che ritorna il json con i dati di un singolo
 Route::get("profile/{id}", [ProfileController::class, "show"]);
+
+
+Route::get("specialization", [SpecializationController::class, "index"]);
