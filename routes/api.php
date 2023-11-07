@@ -33,4 +33,4 @@ Route::get("specialization", [SpecializationController::class, "index"]);
 
 
 // rotta api che ritorna gli utenti che hanno una determinata categoria
-Route::get('/users/specialization/{categoryName}', [ProfileController::class, "specializationUserFilter"] );
+Route::get('/users/specialization/{categoryName?}', [ProfileController::class, "specializationUserFilter"] );

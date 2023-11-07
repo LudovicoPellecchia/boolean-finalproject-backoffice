@@ -37,14 +37,28 @@ class ProfileController extends Controller
     }
 
 
-    public function specializationUserFilter($categoryName)
-    {
-        // Cerca la categoria corrispondente nel modello Specialization
-        $specialization = Specialization::where('name', $categoryName)->first();
+    public function specializationUserFilter($specializationName = null)
+{
+    $usersQuery = User::with('profile', 'specializations'); // Inizia con una query che carica tutti gli utenti con i loro profili
 
-        // Ottieni gli utenti associati a questa categoria
-        $users = $specialization->users()->with('profile')->get();
+    if ($specializationName) {
+        // Cerca la specializzazione corrispondente nel modello Specialization
+        $specialization = Specialization::where('name', $specializationName)->first();
 
-        return response()->json(['data' => $users]);
+        if ($specialization) {
+            // Se la specializzazione esiste, ottieni gli utenti associati a questa specializzazione
+            $usersQuery->whereHas('specializations', function ($query) use ($specialization) {
+                $query->where('specialization_id', $specialization->id);
+            });
+        }
     }
+
+    // Ottieni gli utenti in base alla query
+    $users = $usersQuery->get();
+
+    return response()->json(['data' => $users]);
 }
+
+}
+
+
