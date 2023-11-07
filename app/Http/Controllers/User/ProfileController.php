@@ -51,12 +51,20 @@ class ProfileController extends Controller
 
         // Salvo il file nel filesystem
         //Con il metodo put(), viene ritornato il path del file salvato con un codice univoco
-        $curriculum_path = Storage::put("files", $data["curriculum"]);
-        $image_path = Storage::put("images", $data["photo"]);
-
-        // Sovrascrivo il record "curriculum" con il nuovo path generato che poi verrà salvato sul db
-        $data['curriculum'] = $curriculum_path;
-        $data['photo'] = $image_path;
+        if (isset($data['photo'])) {
+            $image_path = Storage::put("images", $data["photo"]);
+            $data['photo'] = $image_path;
+            // Sovrascrivo il record "photo" con il nuovo path generato che poi verrà salvato sul db
+            $data['photo'] = $image_path;
+        }
+        
+        if (isset($data['curriculum'])) {
+            $curriculum_path = Storage::put("files", $data["curriculum"]);
+            $data['curriculum'] = $curriculum_path;
+            // Sovrascrivo il record "curriculum" con il nuovo path generato che poi verrà salvato sul db
+            $data['curriculum'] = $curriculum_path;
+        }
+        
 
         $user = Auth::user(); // Ottieni l'utente autenticato
         $profile = $user->profile()->create($data);

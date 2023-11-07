@@ -33,7 +33,7 @@ class ProfileStoreRequest extends FormRequest
             "description" => "nullable|string|max:500",
             "skills" => "required|string|max:250",
             "curriculum" => "nullable|file|mimes:pdf",
-            "visible" => "boolean"
+            "visible" => "required|boolean"
 
         ];
     }
