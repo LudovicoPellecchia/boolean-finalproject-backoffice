@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\SpecializationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,4 +34,7 @@ Route::get("specialization", [SpecializationController::class, "index"]);
 
 
 // rotta api che ritorna gli utenti che hanno una determinata categoria
-Route::get('/users/specialization/{categoryName?}', [ProfileController::class, "specializationUserFilter"] );
+Route::get('/users/specialization/{categoryName?}', [ProfileController::class, "specializationUserFilter"]);
+
+// rotta api per le recensioni
+Route::post('/reviews', [ReviewController::class, 'createReview']);
