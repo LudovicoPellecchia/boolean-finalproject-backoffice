@@ -17,7 +17,7 @@ class ProfileUpdateRequest extends FormRequest
     {
 
         return [
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'photo' => "nullable|image|mimes:jpeg,png,jpg",
             "phone" => "required|string|max:15",
             "location" => "required|string|max:50",
             "specializations" => "required|array",
