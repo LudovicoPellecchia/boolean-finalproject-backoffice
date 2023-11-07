@@ -76,7 +76,7 @@
                         Inserisci almeno una specializzazione.
                     </small>
                 </div>
-                
+
             </div>
 
             {{-- Description --}}
@@ -84,7 +84,7 @@
 
                 <label for="description" class="form-label">Description:</label>
                 <textarea class="form-control @error('description') is-invalid @enderror" id="description"
-                    placeholder="Inserisci una tua breve descrizione" name="description" value="{{ old('description') }}"></textarea>
+                    placeholder="Inserisci una tua breve descrizione" name="description">{{ old('description') }}</textarea>
 
                 @error('description')
                     <div class="invalid-feedback">{{ $message }}</div>
