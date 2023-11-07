@@ -25,7 +25,7 @@
                 @enderror
 
                 <small id="photoHelp" class="form-text text-muted">
-                    Carica un'immagine per il tuo profilo.
+                    Carica un'immagine per il tuo profilo in formato jpeg, png, jpg.
                 </small>
 
             </div>
@@ -63,7 +63,7 @@
             </div>
 
             {{-- Specializations --}}
-            <div class="form-group">
+            <div class="form-group mb-4">
                 <label for="specializations">Specializations<span class="text-danger">*</span>:</label>
 
                 @foreach ($specializations as $specialization)
@@ -76,6 +76,13 @@
                 @error('specializations')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
+
+                <div>
+                    <small id="locationHelp" class="form-text text-muted">
+                        Inserisci almeno una specializzazione.
+                    </small>
+                </div>
+
             </div>
 
             {{-- Description --}}
@@ -90,7 +97,7 @@
                 @enderror
 
                 <small id="descriptionHelp" class="form-text text-muted">
-                    Raccontaci di te per raggiungere più utenti.
+                    Raccontaci di te per raggiungere più utenti.La descrizione non deve superare i 500 caratteri (spazi compresi).
                 </small>
 
             </div>
@@ -115,18 +122,23 @@
             {{-- Curriculum  --}}
             <div class="form-group mb-4">
 
-                <label for="curriculum" class="form-label">Curriculum<span class="text-danger">*</span>:</label>
+                <label for="curriculum" class="form-label">Curriculum<span></span>:</label>
                 <input type="file" class="form-control @error('curriculum') is-invalid @enderror" name="curriculum">
 
                 @error('curriculum')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
+
+                <small id="curriculumHelp" class="form-text text-muted">
+                    Carica il tuo curriculum vitae in formato pdf.
+                </small>
+
             </div>
 
             {{-- Visible --}}
             <div class="form-group mb-4">
 
-                <label for="visible" class="form-label">Visible<span class="text-danger">*</span>:</label>
+                <label for="visible" class="form-label">Visible<span></span>:</label>
                 <select type="select" class="form-select @error('visible') is-invalid @enderror" id="visible"
                     name="visible" value="{{ $profile->visible }}">
                     <option value="1" {{ $profile->visible == 1 ? 'selected' : '' }}>Si</option>

@@ -11,7 +11,7 @@
             {{-- Photo --}}
             <div class="form-group mb-4">
 
-                <label for="photo" class="form-label">Photo<span class="text-danger">*</span>:</label>
+                <label for="photo" class="form-label">Photo<span></span>:</label>
                 <input type="file" accept="image/*" class="form-control @error('photo') is-invalid @enderror"
                     id="photo" name="photo">
 
@@ -20,7 +20,7 @@
                 @enderror
 
                 <small id="photoHelp" class="form-text text-muted">
-                    Carica un'immagine per il tuo profilo.
+                    Carica un'immagine per il tuo profilo in formato jpeg, png, jpg.
                 </small>
 
             </div>
@@ -118,6 +118,10 @@
                 @error('curriculum')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
+
+                <small id="curriculumHelp" class="form-text text-muted">
+                    Carica il tuo curriculum vitae in formato pdf.
+                </small>
 
             </div>
 
