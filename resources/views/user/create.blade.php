@@ -31,7 +31,7 @@
                 <label for="phone" class="form-label">Phone<span class="text-danger">*</span>:</label>
                 <input type="text" class="form-control  @error('phone') is-invalid @enderror" id="phone"
                 placeholder="es. 1234567891" name="phone" value="{{ old('phone') }}"
-                oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                oninput="this.value = this.value.replace(/[^0-9]/g, '')" required autocomplete="phone" autofocus>
                 
 
                 @error('phone')
@@ -49,7 +49,7 @@
 
                 <label for="location" class="form-label">Location<span class="text-danger">*</span>:</label>
                 <input type="text" class="form-control @error('location') is-invalid @enderror" id="phone"
-                    placeholder="Inserisci la città in vui vivi attualmente" name="location" value="{{ old('location') }}">
+                    placeholder="Inserisci la città in vui vivi attualmente" name="location" value="{{ old('location') }}" required autocomplete="location" autofocus>
 
                 @error('location')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -78,7 +78,7 @@
             {{-- Description --}}
             <div class="form-group mb-4">
 
-                <label for="description" class="form-label">Description<span class="text-danger">*</span>:</label>
+                <label for="description" class="form-label">Description:</label>
                 <textarea class="form-control @error('description') is-invalid @enderror" id="description"
                     placeholder="Inserisci una tua breve descrizione" name="description" value="{{ old('description') }}"></textarea>
 
@@ -97,7 +97,7 @@
 
                 <label for="skills" class="form-label">Skills<span class="text-danger">*</span>:</label>
                 <input type="text" class="form-control @error('skills') is-invalid @enderror" id="skills"
-                    placeholder="Inserisci le tue competenze" name="skills" value="{{ old('skills') }}">
+                    placeholder="Inserisci le tue competenze" name="skills" value="{{ old('skills') }}" required autocomplete="skills" autofocus>
 
                 @error('skills')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -113,7 +113,7 @@
             <div class="form-group mb-4">
 
                 <label for="curriculum" class="form-label">Curriculum<span class="text-danger">*</span>:</label>
-                <input type="file" class="form-control  @error('curriculum') is-invalid @enderror" name="curriculum">
+                <input type="file" class="form-control  @error('curriculum') is-invalid @enderror" name="curriculum" required autocomplete="curriculum" autofocus>
 
                 @error('curriculum')
                     <div class="invalid-feedback">{{ $message }}</div>
