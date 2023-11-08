@@ -5,7 +5,8 @@
 
         <h2 class="mb-4">Completa il tuo profilo!</h2>
 
-        <form id="validationForm" action="{{ route('user.update', ['user' => $profile->id]) }}" method="POST" enctype="multipart/form-data">
+        <form id="validationForm" action="{{ route('user.update', ['user' => $profile->id]) }}" method="POST"
+            enctype="multipart/form-data">
             @csrf
             @method('put')
 
@@ -100,7 +101,8 @@
                 @enderror
 
                 <small id="descriptionHelp" class="form-text text-muted">
-                    Raccontaci di te per raggiungere più utenti.La descrizione non deve superare i 500 caratteri (spazi compresi).
+                    Raccontaci di te per raggiungere più utenti.La descrizione non deve superare i 500 caratteri (spazi
+                    compresi).
                 </small>
 
             </div>
@@ -157,57 +159,67 @@
 
         </form>
 
-    {{-- Il codice js deve essere posizionato dopo l'HTML del form per accedere agli elementi del form.  --}}
-    
+        {{-- Il codice js deve essere posizionato dopo l'HTML del form per accedere agli elementi del form.  --}}
+
 
 
     </div>
-
 @endsection
 
-    <script>
+<script>
+    // Ciò garantisce che il codice js venga eseguito quando il DOM è pronto.
+    document.addEventListener('DOMContentLoaded', function() {
 
-        // Ciò garantisce che il codice js venga eseguito quando il DOM è pronto.
-        document.addEventListener('DOMContentLoaded', function() {
-    
-            validationForm.addEventListener('submit', (e) => {
-                e.preventDefault(); // Previeni il refresh della pagina
-    
-                if (checkinputs()) {
-                    validationForm.submit();
-                }
-            });
-    
-            function checkinputs() {
-    
-                // Salvo ogni record da validare del form
-                const phone = document.getElementById("phone").value;
-                const location = document.getElementById("location").value;
-                const skills = document.getElementById("skills").value;
-    
-                let isValid = true;
-    
-    
-                // Se la validazione non ha avuto successo, non refreshare la pagina
-                if (phone.trim() === "") {
-                    alert("Il campo phone è obbligatorio");
-                    isValid = false;
-                }
-    
-                if (location.trim() === "") {
-                    alert("Il campo location è obbligatorio");
-                    isValid = false;
-                }
-    
-                if (skills.trim() === "") {
-                    alert("Il campo skills è obbligatorio");
-                    isValid = false;
-                }
-    
-                return isValid;
-    
+        validationForm.addEventListener('submit', (e) => {
+            e.preventDefault(); // Previeni il refresh della pagina
+
+            if (checkinputs()) {
+                validationForm.submit();
             }
-    
         });
 
-    </script>
+        function checkinputs() {
+
+            // Salvo ogni record da validare del form
+            const phone = document.getElementById("phone").value;
+            const location = document.getElementById("location").value;
+            const skills = document.getElementById("skills").value;
+            const specializations = document.querySelectorAll('input[name="specializations[]"]');
+            let isChecked = false;
+            let isValid = true;
+
+
+            // Se la validazione non ha avuto successo, non refreshare la pagina
+            if (phone.trim() === "") {
+                alert("Il campo phone è obbligatorio");
+                isValid = false;
+            }
+
+            if (location.trim() === "") {
+                alert("Il campo location è obbligatorio");
+                isValid = false;
+            }
+
+            // Verifica se almeno una checkbox è stata selezionata
+            specializations.forEach((checkbox) => {
+                if (checkbox.checked) {
+                    isChecked = true;
+                }
+            });
+
+            if (!isChecked) {
+                alert("Seleziona almeno una specializzazione");
+                isValid = false;
+            }
+
+            if (skills.trim() === "") {
+                alert("Il campo skills è obbligatorio");
+                isValid = false;
+            }
+
+            return isValid;
+
+        }
+
+    });
+</script>

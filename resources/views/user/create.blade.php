@@ -119,7 +119,7 @@
             {{-- Curriculum --}}
             <div class="form-group mb-4">
 
-                <label for="curriculum" class="form-label">Curriculum<span class="text-danger">*</span>:</label>
+                <label for="curriculum" class="form-label">Curriculum<span></span>:</label>
                 <input type="file" class="form-control  @error('curriculum') is-invalid @enderror" name="curriculum">
 
                 @error('curriculum')
@@ -179,7 +179,9 @@
             const phone = document.getElementById("phone").value;
             const location = document.getElementById("location").value;
             const skills = document.getElementById("skills").value;
+            const specializations = document.querySelectorAll('input[name="specializations[]"]');
             const visible = document.getElementById("visible");
+            let isChecked = false;
             let isValid = true;
 
 
@@ -194,6 +196,18 @@
                 isValid = false;
             }
 
+            // Verifica se almeno una checkbox è stata selezionata
+            specializations.forEach((checkbox) => {
+                if (checkbox.checked) {
+                    isChecked = true;
+                }
+            });
+            
+            if (!isChecked) {
+                alert("Seleziona almeno una specializzazione");
+                isValid = false;
+            }
+            
             if (skills.trim() === "") {
                 alert("Il campo skills è obbligatorio");
                 isValid = false;
@@ -203,6 +217,8 @@
             if (visible.selectedIndex === 0) {
                 alert("Seleziona almeno un'opzione per il campo visible");
                 isValid = false;
+
+                return isValid;
             }
 
             return isValid;
