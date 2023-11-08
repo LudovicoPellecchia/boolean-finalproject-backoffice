@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\ProfileController as UserProfileController;
+use App\Http\Controllers\BraintreeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +25,6 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
-
 Route::middleware(['auth', 'verified'])->group(function () {
     //CREATE
     Route::get('/user/create', [UserProfileController::class, 'create'])->name('user.create');
@@ -38,6 +38,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //DELETE
     Route::delete('/user/{user}', [UserProfileController::class, 'destroy'])->name('user.destroy');
 });
+
+
+// Rotta Braintree
+Route::any('/braintree', [BraintreeController::class, 'token'])->name('token')->middleware('auth');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
