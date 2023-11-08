@@ -42,6 +42,12 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
 
+                <div>
+                    <small id="phoneAlert" class="form-text text-muted d-none">
+                        Il campo phone è obbligatorio.
+                    </small>
+                </div>
+
                 <small id="phoneHelp" class="form-text text-muted">
                     Inserisci il tuo numero di telefono.
                 </small>
@@ -59,6 +65,12 @@
                 @error('location')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
+
+                <div>
+                    <small id="locationAlert" class="form-text text-muted d-none">
+                        Il campo location è obbligatorio.
+                    </small>
+                </div>
 
                 <small id="locationHelp" class="form-text text-muted">
                     Inserisci la città in cui risiedi.
@@ -80,6 +92,12 @@
                 @error('specializations')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
+
+                <div>
+                    <small id="specializationsAlert" class="form-text text-muted d-none">
+                        Seleziona almeno una specializzazione.
+                    </small>
+                </div>
 
                 <div>
                     <small id="locationHelp" class="form-text text-muted">
@@ -117,6 +135,12 @@
                 @error('skills')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
+
+                <div>
+                    <small id="skillsAlert" class="form-text text-muted d-none">
+                        Il campo skills è obbligatorio
+                    </small>
+                </div>
 
                 <small id="skillsHelp" class="form-text text-muted">
                     Descrivi brevemente quali sono le tue competenze.
@@ -188,16 +212,33 @@
             let isChecked = false;
             let isValid = true;
 
+            //Imposto gli alert per la validazione client-side
+            const phoneAlert = document.getElementById("phoneAlert");
+            const locationAlert = document.getElementById("locationAlert");
+            const skillsAlert = document.getElementById("skillsAlert");
+            const specializationsAlert = document.getElementById("specializationsAlert");
+
 
             // Se la validazione non ha avuto successo, non refreshare la pagina
             if (phone.trim() === "") {
-                alert("Il campo phone è obbligatorio");
+                // Faccio comparire il messaggio di errore
+                phoneAlert.classList.remove("d-none", "text-muted");
+                phoneAlert.classList.add("text-danger");
                 isValid = false;
+            } else {
+                // Se la validazione è passata, nascondi l'alert
+                phoneAlert.classList.add("d-none");
+                phoneAlert.classList.remove("text-danger");
             }
 
             if (location.trim() === "") {
-                alert("Il campo location è obbligatorio");
+                locationAlert.classList.remove("d-none", "text-muted");
+                locationAlert.classList.add("text-danger");
                 isValid = false;
+            } else {
+                // Se la validazione è passata, nascondi l'alert
+                locationAlert.classList.add("d-none");
+                locationAlert.classList.remove("text-danger");
             }
 
             // Verifica se almeno una checkbox è stata selezionata
@@ -208,13 +249,21 @@
             });
 
             if (!isChecked) {
-                alert("Seleziona almeno una specializzazione");
+                specializationsAlert.classList.remove("d-none", "text-muted");
+                specializationsAlert.classList.add("text-danger");
                 isValid = false;
+            } else {
+                specializationsAlert.classList.add("d-none");
+                specializationsAlert.classList.remove("text-danger");
             }
 
             if (skills.trim() === "") {
-                alert("Il campo skills è obbligatorio");
+                skillsAlert.classList.remove("d-none", "text-muted");
+                skillsAlert.classList.add("text-danger");
                 isValid = false;
+            } else {
+                skillsAlert.classList.add("d-none");
+                skillsAlert.classList.remove("text-danger");
             }
 
             return isValid;
