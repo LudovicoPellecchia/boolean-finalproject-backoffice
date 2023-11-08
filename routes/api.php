@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\SpecializationController;
 use Illuminate\Http\Request;
@@ -34,3 +35,7 @@ Route::get("specialization", [SpecializationController::class, "index"]);
 
 // rotta api che ritorna gli utenti che hanno una determinata categoria
 Route::get('/users/specialization/{categoryName?}', [ProfileController::class, "specializationUserFilter"] );
+
+
+//rotta api che invia al database i messaggi dal frontend
+Route::post("messages", [MessageController::class, "store"]);
