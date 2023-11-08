@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name', 50);
             $table->string('surname', 50)->nullable();
             $table->text('text');
+            $table->tinyInteger('score')->nullable();
             $table->timestamps();
         });
     }

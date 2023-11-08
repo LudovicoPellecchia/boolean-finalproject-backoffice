@@ -15,6 +15,7 @@ class ReviewController extends Controller
             'name' => 'required|string',
             'surname' => 'required|string',
             'text' => 'required|string',
+            'score' => 'required|integer|min:1|max:5',
         ]);
 
         // Cerca l'utente
