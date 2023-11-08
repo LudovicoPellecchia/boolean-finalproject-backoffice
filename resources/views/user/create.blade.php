@@ -5,14 +5,15 @@
 
         <h2 class="mb-4">Crea il tuo profilo!</h2>
 
-        <form action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
+        <form id="validationForm" action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             {{-- Photo --}}
             <div class="form-group mb-4">
 
                 <label for="photo" class="form-label">Photo<span></span>:</label>
-                <input type="file" accept="image/*" class="form-control @error('photo') is-invalid @enderror" id="photo" name="photo">
+                <input type="file" accept="image/*" class="form-control @error('photo') is-invalid @enderror"
+                    id="photo" name="photo">
 
                 @error('photo')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -29,9 +30,9 @@
 
                 <label for="phone" class="form-label">Phone<span class="text-danger">*</span>:</label>
                 <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone"
-                placeholder="es. 1234567891" name="phone" value="{{ old('phone') }}"
-                oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-                
+                    placeholder="es. 1234567891" name="phone" value="{{ old('phone') }}"
+                    oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+
                 @error('phone')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -47,23 +48,24 @@
                 <label for="location" class="form-label">Location<span class="text-danger">*</span>:</label>
                 <input type="text" class="form-control @error('location') is-invalid @enderror" id="location"
                     placeholder="Inserisci la città in cui vivi attualmente" name="location" value="{{ old('location') }}">
-            
+
                 @error('location')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
-            
+
                 <small id="locationHelp" class="form-text text-muted">
                     Inserisci la città in cui risiedi.
                 </small>
             </div>
-            
+
 
             {{-- Specializations --}}
             <div class="form-group mb-4">
                 <label for="specializations">Specializations<span class="text-danger">*</span>:</label>
 
                 @foreach ($specializations as $specialization)
-                    <input class="form-check-input @error('specializations') is-invalid @enderror" type="checkbox" name="specializations[]">
+                    <input class="form-check-input @error('specializations') is-invalid @enderror" id="specializations" type="checkbox"
+                        name="specializations[]">
                     <label class="form-check-label" for="{{ $specialization->id }}">{{ $specialization->name }}</label>
                 @endforeach
 
@@ -148,10 +150,59 @@
 
             {{-- Button  --}}
             <div class="pt-3 pb-5 text-end">
-                <button type="submit" class="btn btn-lg btn-primary">CREA</button>
+                <button id="createBtn" type="submit" class="btn btn-lg btn-primary">CREA</button>
             </div>
 
         </form>
 
     </div>
+
 @endsection
+
+{{-- Il codice js deve essere posizionato dopo l'HTML del form per accedere agli elementi del form.  --}}
+
+<script>
+
+    // Ciò garantisce che il codice js venga eseguito quando il DOM è pronto.
+    document.addEventListener('DOMContentLoaded', function() {
+
+        validationForm.addEventListener('submit', (e) => {
+            e.preventDefault(); // Previeni il refresh della pagina
+
+            if (checkinputs()) {
+                validationForm.submit();
+            }
+        });
+
+        function checkinputs() {
+
+            // Salvo ogni record da validare del form
+            const phone = document.getElementById("phone").value;
+            const location = document.getElementById("location").value;
+            const skills = document.getElementById("skills").value;
+            let isValid = true;
+
+
+            // Se la validazione non ha avuto successo, non refreshare la pagina
+            if (phone.trim() === "") {
+                alert("Il campo phone è obbligatorio");
+                isValid = false;
+            }
+
+            if (location.trim() === "") {
+                alert("Il campo location è obbligatorio");
+                isValid = false;
+            }
+
+            if (skills.trim() === "") {
+                alert("Il campo skills è obbligatorio");
+                isValid = false;
+            }
+
+            return isValid;
+
+        }
+
+    });
+
+</script>

@@ -5,7 +5,7 @@
 
         <h2 class="mb-4">Completa il tuo profilo!</h2>
 
-        <form action="{{ route('user.update', ['user' => $profile->id]) }}" method="POST" enctype="multipart/form-data">
+        <form id="validationForm" action="{{ route('user.update', ['user' => $profile->id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('put')
 
@@ -34,14 +34,17 @@
             <div class="form-group mb-4">
                 <label for="phone" class="form-label">Phone<span class="text-danger">*</span>:</label>
                 <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone"
-                       placeholder="es. 1234567891" name="phone" value="{{ $profile->phone }}"
-                       oninput="this.value = this.value.replace(/[^0-9]/g, '')" required autocomplete="phone" autofocus>
+                    placeholder="es. 1234567891" name="phone" value="{{ $profile->phone }}"
+                    oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+
                 @error('phone')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
+
                 <small id="phoneHelp" class="form-text text-muted">
                     Inserisci il tuo numero di telefono.
                 </small>
+
             </div>
 
             {{-- Location --}}
@@ -50,7 +53,7 @@
                 <label for="location" class="form-label">Location<span class="text-danger">*</span>:</label>
                 <input type="text" class="form-control @error('location') is-invalid @enderror" id="location"
                     placeholder="Inserisci la città in vui vivi attualmente" name="location"
-                    value="{{ $profile->location }}" required autocomplete="location" autofocus>
+                    value="{{ $profile->location }}">
 
                 @error('location')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -67,8 +70,8 @@
                 <label for="specializations">Specializations<span class="text-danger">*</span>:</label>
 
                 @foreach ($specializations as $specialization)
-                    <input class="form-check-input @error('description') is-invalid @enderror" type="checkbox" name="specializations[]" id="{{ $specialization->id }}"
-                        value="{{ $specialization->id }}"
+                    <input class="form-check-input @error('description') is-invalid @enderror" type="checkbox"
+                        name="specializations[]" id="{{ $specialization->id }}" value="{{ $specialization->id }}"
                         {{ $userSpecializations?->contains($specialization) ? 'checked' : '' }}>
                     <label class="form-check-label" for="{{ $specialization->id }}">{{ $specialization->name }}</label>
                 @endforeach
@@ -107,14 +110,14 @@
 
                 <label for="skills" class="form-label">Skills<span class="text-danger">*</span>:</label>
                 <input type="text" class="form-control  @error('skills') is-invalid @enderror" id="skills"
-                    placeholder="Inserisci le tue competenze" name="skills" value="{{ $profile->skills }}" required autocomplete="skills" autofocus>
+                    placeholder="Inserisci le tue competenze" name="skills" value="{{ $profile->skills }}">
 
                 @error('skills')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
 
                 <small id="skillsHelp" class="form-text text-muted">
-                    Inserisci le tue abilità.
+                    Descrivi brevemente quali sono le tue competenze.
                 </small>
 
             </div>
@@ -154,5 +157,56 @@
 
         </form>
 
+    {{-- Il codice js deve essere posizionato dopo l'HTML del form per accedere agli elementi del form.  --}}
+    
+
+
     </div>
+
 @endsection
+
+    <script>
+
+        // Ciò garantisce che il codice js venga eseguito quando il DOM è pronto.
+        document.addEventListener('DOMContentLoaded', function() {
+    
+            validationForm.addEventListener('submit', (e) => {
+                e.preventDefault(); // Previeni il refresh della pagina
+    
+                if (checkinputs()) {
+                    validationForm.submit();
+                }
+            });
+    
+            function checkinputs() {
+    
+                // Salvo ogni record da validare del form
+                const phone = document.getElementById("phone").value;
+                const location = document.getElementById("location").value;
+                const skills = document.getElementById("skills").value;
+                let isValid = true;
+    
+    
+                // Se la validazione non ha avuto successo, non refreshare la pagina
+                if (phone.trim() === "") {
+                    alert("Il campo phone è obbligatorio");
+                    isValid = false;
+                }
+    
+                if (location.trim() === "") {
+                    alert("Il campo location è obbligatorio");
+                    isValid = false;
+                }
+    
+                if (skills.trim() === "") {
+                    alert("Il campo skills è obbligatorio");
+                    isValid = false;
+                }
+    
+                return isValid;
+    
+            }
+    
+        });
+
+    </script>
