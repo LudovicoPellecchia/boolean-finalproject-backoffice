@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\SpecializationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,3 +40,6 @@ Route::get('/users/specialization/{categoryName?}', [ProfileController::class, "
 
 //rotta api che invia al database i messaggi dal frontend
 Route::post("messages", [MessageController::class, "store"]);
+
+// rotta api per le recensioni
+Route::post('/reviews', [ReviewController::class, 'createReview']);
