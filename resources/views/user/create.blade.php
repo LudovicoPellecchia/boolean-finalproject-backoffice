@@ -70,7 +70,6 @@
                 </small>
             </div>
 
-
             {{-- Specializations --}}
             <div class="form-group mb-4">
                 <label for="specializations">Specializations<span class="text-danger">*</span>:</label>
