@@ -64,8 +64,8 @@
                 <label for="specializations">Specializations<span class="text-danger">*</span>:</label>
 
                 @foreach ($specializations as $specialization)
-                    <input class="form-check-input @error('specializations') is-invalid @enderror" id="specializations" type="checkbox"
-                        name="specializations[]">
+                    <input class="form-check-input @error('specializations') is-invalid @enderror" id="specializations"
+                        type="checkbox" name="specializations[]">
                     <label class="form-check-label" for="{{ $specialization->id }}">{{ $specialization->name }}</label>
                 @endforeach
 
@@ -93,7 +93,8 @@
                 @enderror
 
                 <small id="descriptionHelp" class="form-text text-muted">
-                    Raccontaci di te per raggiungere più utenti.La descrizione non deve superare i 500 caratteri (spazi compresi).
+                    Raccontaci di te per raggiungere più utenti.La descrizione non deve superare i 500 caratteri (spazi
+                    compresi).
                 </small>
 
             </div>
@@ -156,13 +157,11 @@
         </form>
 
     </div>
-
 @endsection
 
 {{-- Il codice js deve essere posizionato dopo l'HTML del form per accedere agli elementi del form.  --}}
 
 <script>
-
     // Ciò garantisce che il codice js venga eseguito quando il DOM è pronto.
     document.addEventListener('DOMContentLoaded', function() {
 
@@ -180,6 +179,7 @@
             const phone = document.getElementById("phone").value;
             const location = document.getElementById("location").value;
             const skills = document.getElementById("skills").value;
+            const visible = document.getElementById("visible");
             let isValid = true;
 
 
@@ -199,10 +199,15 @@
                 isValid = false;
             }
 
+            // Verifica se un'opzione è stata selezionata
+            if (visible.selectedIndex === 0) {
+                alert("Seleziona almeno un'opzione per il campo visible");
+                isValid = false;
+            }
+
             return isValid;
 
         }
 
     });
-
 </script>

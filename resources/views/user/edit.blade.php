@@ -184,6 +184,7 @@
                 const phone = document.getElementById("phone").value;
                 const location = document.getElementById("location").value;
                 const skills = document.getElementById("skills").value;
+    
                 let isValid = true;
     
     
