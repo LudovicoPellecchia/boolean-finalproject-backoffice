@@ -1,248 +1,367 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mt-4">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">{{ __('Register') }}</div>
+{{-- ------------------------ --}}
+<div class="container-fluid ">
 
-                    <div class="card-body">
-                        <form id="validationForm" method="POST" action="{{ route('register') }}">
-                            @csrf
+</div>
+<div class="row ">
+    <div class="col-lg-4 col-12 categories-bg ">
+        <h2 class="username text-center">Registrazione</h2>
 
-                            {{-- Name --}}
-                            <div class="mb-4 row">
-                                <label for="name" class="col-md-4 col-form-label">{{ __('Name') }}<span
-                                        class="text-danger">*</span></label>
+        <div class="col-md-12">
+            <div class="card-body  ">
+                <p class="description text-justify"> Benvenuto nella pagina di registrazione. Crea un account per accedere a tutte le funzionalità del nostro servizio. È rapido e semplice. Inizia ora e fai parte della nostra community online. Siamo entusiasti di averti con noi!</p>
 
-                                <div class="col-md-6">
-                                    <input id="name" type="text"
-                                        class="form-control @error('name') is-invalid @enderror" name="name"
-                                        value="{{ old('name') }}">
-
-                                    @error('name')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-
-                                    <div>
-                                        <small id="nameAlert" class="form-text text-muted d-none">
-                                            Il campo name è obbligatorio.
-                                        </small>
-                                    </div>
-
-                                    <small id="nameHelp" class="form-text text-muted">
-                                        Inserisci il tuo nome.
-                                    </small>
-
-                                </div>
-
-                            </div>
-
-                            {{-- Surname --}}
-                            <div class="mb-4 row">
-                                <label for="surname" class="col-md-4 col-form-label text-md-right">{{ __('Surname') }}<span
-                                        class="text-danger">*</span></label>
-
-                                <div class="col-md-6">
-                                    <input id="surname" type="text"
-                                        class="form-control @error('surname') is-invalid @enderror" name="surname"
-                                        value="{{ old('surname') }}">
-
-                                    @error('surname')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-
-                                    <div>
-                                        <small id="surnameAlert" class="form-text text-muted d-none">
-                                            Il campo name è obbligatorio.
-                                        </small>
-                                    </div>
-
-                                    <small id="surnameHelp" class="form-text text-muted">
-                                        Inserisci il tuo cognome.
-                                    </small>
-
-                                </div>
-
-                            </div>
-
-                            {{-- Location --}}
-                            <div class="mb-4 row">
-                                <label for="location"
-                                    class="col-md-4 col-form-label text-md-right">{{ __('Location') }}<span
-                                        class="text-danger">*</span></label>
-
-                                <div class="col-md-6">
-                                    <input id="location" type="text"
-                                        class="form-control @error('location') is-invalid @enderror" name="location"
-                                        value="{{ old('location') }}">
-
-                                    @error('location')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-
-                                    <div>
-                                        <small id="locationAlert" class="form-text text-muted d-none">
-                                            Il campo location è obbligatorio.
-                                        </small>
-                                    </div>
-
-                                    <small id="locationHelp" class="form-text text-muted">
-                                        Inserisci la città in cui risiedi.
-                                    </small>
-
-                                </div>
-                            </div>
-
-                            {{-- Specialization --}}
-                            <div class="mb-4 row">
-                                <label for="specializations"
-                                    class="col-md-4 col-form-label text-md-right">{{ __('Specializations') }}<span
-                                        class="text-danger">*</span></label>
-
-                                <div class="col-md-6">
-                                    @foreach ($specializations as $specialization)
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="specializations[]"
-                                                id="{{ $specialization->id }}" value="{{ $specialization->id }}">
-                                            <label class="form-check-label"
-                                                for="{{ $specialization->id }}">{{ $specialization->name }}</label>
-                                        </div>
-                                    @endforeach
-
-                                    @error('specializations')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-
-                                    <div>
-                                        <small id="specializationsAlert" class="form-text text-muted d-none">
-                                            Seleziona almeno una specializzazione.
-                                        </small>
-                                    </div>
-
-                                    <div>
-                                        <small id="specializationsHelp" class="form-text text-muted">
-                                            Seleziona almeno una specializzazione.
-                                        </small>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            {{-- Email --}}
-                            <div class="mb-4 row">
-                                <label for="email"
-                                    class="col-md-4 col-form-label">{{ __('E-Mail Address') }}<span
-                                        class="text-danger">*</span></label>
-
-                                <div class="col-md-6">
-                                    <input id="email" type="email"
-                                        class="form-control @error('email') is-invalid @enderror" name="email"
-                                        value="{{ old('email') }}">
-
-                                    @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-
-                                    <div>
-                                        <small id="emailAlert" class="form-text text-muted d-none">
-                                            Il campo email è obbligatorio.
-                                        </small>
-                                    </div>
-
-                                    <small id="emailHelp" class="form-text text-muted">
-                                        Inserisci la tua email.
-                                    </small>
-
-                                </div>
-
-                            </div>
-
-                            {{-- Password --}}
-                            <div class="mb-4 row">
-                                <label for="password" class="col-md-4 col-form-label">{{ __('Password') }}<span
-                                        class="text-danger">*</span></label>
-
-                                <div class="col-md-6">
-                                    <input id="password" type="password"
-                                        class="form-control @error('password') is-invalid @enderror" name="password">
-
-                                    @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-
-                                    <div>
-                                        <small id="passwordAlert" class="form-text text-muted d-none">
-                                            Il campo password è obbligatorio.
-                                        </small>
-                                        <small id="differentPswAlert" class="form-text text-muted d-none">
-                                            Le password non coincidono.
-                                        </small>
-                                    </div>
-
-                                    <small id="passwordHelp" class="form-text text-muted">
-                                        Inserisci la tua password.
-                                    </small>
-
-                                </div>
-
-                            </div>
-
-                            {{-- Password Confirmation --}}
-                            <div class="mb-4 row">
-                                <label for="password-confirm"
-                                    class="col-md-4 col-form-label">{{ __('Confirm Password') }}<span
-                                        class="text-danger">*</span></label>
-
-                                <div class="col-md-6">
-                                    <input id="confirmedPsw" type="password" class="form-control"
-                                        name="password_confirmation">
-
-                                    <div>
-                                        <small id="confirmedPswAlert" class="form-text text-muted d-none">
-                                            Il campo password è obbligatorio.
-                                        </small>
-                                        <small id="differentConfirmPswAlert" class="form-text text-muted d-none">
-                                            Le password non coincidono.
-                                        </small>
-                                    </div>
-
-                                    <small id="confirmedPswHelp" class="form-text text-muted">
-                                        Inserisci ancora la password.
-                                    </small>
-                                </div>
-
-                            </div>
-
-                            <div class="mb-4 row mb-0">
-                                <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        {{ __('Register') }}
-                                    </button>
-                                </div>
-                            </div>
-
-                        </form>
-
-                    </div>
-                </div>
             </div>
         </div>
+
+
     </div>
+
+
+    <div class="col-lg-8 col-12 ">
+            <div class="row justify-content-center">
+                <div class="col-md-10 mt-3">
+                    
+                    <!-- bootstrap card -->
+                    {{-- ------------------- --}}
+                    <div class="bg-custom">
+                        {{-- <div class="card-header info">{{ __('Register') }}</div> --}}
+    
+                        <div class="card-body">
+                            <form id="validationForm" method="POST" action="{{ route('register') }}">
+                                @csrf
+    
+                                {{-- Name --}}
+                                <div class="mb-4 row">
+                                    <label for="name" class="col-md-4 col-form-label info">{{ __('Name') }}<span
+                                            class="info"> * </span></label>
+    
+                                    <div class="col-md-6">
+                                        <input id="name" type="text"
+                                            class="form-control @error('name') is-invalid @enderror" name="name"
+                                            value="{{ old('name') }}">
+    
+                                        @error('name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+    
+                                        <div>
+                                            <small id="nameAlert" class="form-text text-muted d-none">
+                                                Il campo name è obbligatorio.
+                                            </small>
+                                        </div>
+    
+                                        <small id="nameHelp" class="form-text text-light">
+                                            Inserisci il tuo nome.
+                                        </small>
+    
+                                    </div>
+    
+                                </div>
+    
+                                {{-- Surname --}}
+                                <div class="mb-4 row">
+                                    <label for="surname" class="col-md-4 col-form-label text-md-right info">{{ __('Surname') }}<span
+                                            class="info"> * </span></label>
+    
+                                    <div class="col-md-6">
+                                        <input id="surname" type="text"
+                                            class="form-control @error('surname') is-invalid @enderror" name="surname"
+                                            value="{{ old('surname') }}">
+    
+                                        @error('surname')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+    
+                                        <div>
+                                            <small id="surnameAlert" class="form-text text-muted d-none">
+                                                Il campo name è obbligatorio.
+                                            </small>
+                                        </div>
+    
+                                        <small id="surnameHelp" class="form-text text-light">
+                                            Inserisci il tuo cognome.
+                                        </small>
+    
+                                    </div>
+    
+                                </div>
+    
+                                {{-- Location --}}
+                                <div class="mb-4 row">
+                                    <label for="location"
+                                        class="col-md-4 col-form-label text-md-right info">{{ __('Location') }}<span
+                                            class="info"> * </span></label>
+    
+                                    <div class="col-md-6">
+                                        <input id="location" type="text"
+                                            class="form-control @error('location') is-invalid @enderror" name="location"
+                                            value="{{ old('location') }}">
+    
+                                        @error('location')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+    
+                                        <div>
+                                            <small id="locationAlert" class="form-text text-muted d-none">
+                                                Il campo location è obbligatorio.
+                                            </small>
+                                        </div>
+    
+                                        <small id="locationHelp" class="form-text text-light">
+                                            Inserisci la città in cui risiedi.
+                                        </small>
+    
+                                    </div>
+                                </div>
+    
+                                {{-- Specialization --}}
+                                <div class="mb-4 row ">
+                                    <label for="specializations"
+                                        class="col-md-4 col-form-label text-md-right info">{{ __('Specializations') }}<span
+                                            class="info"> * </span></label>
+    
+                                    <div class="col-md-6 specialisation-font">
+                                        @foreach ($specializations as $specialization)
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" name="specializations[]"
+                                                    id="{{ $specialization->id }}" value="{{ $specialization->id }}">
+                                                <label class="form-check-label"
+                                                    for="{{ $specialization->id }}">{{ $specialization->name }}</label>
+                                            </div>
+                                        @endforeach
+    
+                                        @error('specializations')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+    
+                                        <div>
+                                            <small id="specializationsAlert" class="form-text text-muted d-none">
+                                                Seleziona almeno una specializzazione.
+                                            </small>
+                                        </div>
+    
+                                        <div>
+                                            <small id="specializationsHelp" class="form-text text-light">
+                                                Seleziona almeno una specializzazione.
+                                            </small>
+                                        </div>
+    
+                                    </div>
+    
+                                </div>
+    
+                                {{-- Email --}}
+                                <div class="mb-4 row">
+                                    <label for="email"
+                                        class="col-md-4 col-form-label info">{{ __('E-Mail Address') }}<span
+                                            class="info"> * </span></label>
+    
+                                    <div class="col-md-6">
+                                        <input id="email" type="email"
+                                            class="form-control @error('email') is-invalid @enderror" name="email"
+                                            value="{{ old('email') }}">
+    
+                                        @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+    
+                                        <div>
+                                            <small id="emailAlert" class="form-text text-muted d-none">
+                                                Il campo email è obbligatorio.
+                                            </small>
+                                        </div>
+    
+                                        <small id="emailHelp" class="form-text text-light">
+                                            Inserisci la tua email.
+                                        </small>
+    
+                                    </div>
+    
+                                </div>
+    
+                                {{-- Password --}}
+                                <div class="mb-4 row">
+                                    <label for="password" class="col-md-4 col-form-label info">{{ __('Password') }}<span
+                                            class="info"> * </span></label>
+    
+                                    <div class="col-md-6">
+                                        <input id="password" type="password"
+                                            class="form-control @error('password') is-invalid @enderror" name="password">
+    
+                                        @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+    
+                                        <div>
+                                            <small id="passwordAlert" class="form-text text-muted d-none">
+                                                Il campo password è obbligatorio.
+                                            </small>
+                                            <small id="differentPswAlert" class="form-text text-muted d-none">
+                                                Le password non coincidono.
+                                            </small>
+                                        </div>
+    
+                                        <small id="passwordHelp" class="form-text text-light">
+                                            Inserisci la tua password.
+                                        </small>
+    
+                                    </div>
+    
+                                </div>
+    
+                                {{-- Password Confirmation --}}
+                                <div class="mb-4 row">
+                                    <label for="password-confirm"
+                                        class="col-md-4 col-form-label info">{{ __('Confirm Password') }}<span
+                                            class="info"> * </span></label>
+    
+                                    <div class="col-md-6">
+                                        <input id="confirmedPsw" type="password" class="form-control"
+                                            name="password_confirmation">
+    
+                                        <div>
+                                            <small id="confirmedPswAlert" class="form-text text-muted d-none">
+                                                Il campo password è obbligatorio.
+                                            </small>
+                                            <small id="differentConfirmPswAlert" class="form-text text-muted d-none">
+                                                Le password non coincidono.
+                                            </small>
+                                        </div>
+    
+                                        <small id="confirmedPswHelp" class="form-text text-light">
+                                            Inserisci ancora la password.
+                                        </small>
+                                    </div>
+    
+                                </div>
+    
+                                <div class="mb-4 row mb-0">
+                                    <div class="col-md-6 offset-md-4">
+                                        <button type="submit" class="btn">
+                                            {{ __('Register') }}
+                                        </button>
+                                    </div>
+                                </div>
+    
+                            </form>
+    
+                        </div>
+                    </div>
+
+                    {{-- ------------------- --}}
+                </div>
+            </div>
+    </div>
+</div>
+</div>
+</div>
+
+
+    {{-- ----------- --}}
+    {{-- -css- --}}
+    <style>
+        body {
+            background-image: url(/bg-2.jpg);
+            background-size: cover;
+            background-attachment: fixed; //fissa il bg-img per evitare lo scrolling
+            background-repeat: no-repeat;
+        }
+    
+        /* aggiunge un overlay trasparente all'immagine di sfondo */
+        body::before {
+            content: "";
+            background: rgba(173, 171, 171, 0.5);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            /* Posiziona l'overlay dietro all'immagine di sfondo */
+        }
+    
+        .my-bg {
+            background-color: rgba(173, 171, 171, 0.3);
+            width: 100%;
+        }
+    
+        .title {
+            font-size: 2rem;
+            color: #27CDF2;
+    
+        }
+    
+        .info{
+        font-size: 1rem;
+        color: #27CDF2;
+        font-weight: bold
+    
+    }
+     .specialisation-font{
+        color: #b0b1b2;
+     }
+    
+        .username {
+            font-size: 4rem;
+            color: #27CDF2;
+    
+        }
+    
+        .description {
+            color: #b0b1b2;
+            padding: 2rem
+        }
+    
+         .bg-custom{
+            background-color: rgba(51, 51, 51, 0.5);
+            border-color: rgba(51, 51, 51, 0.5);
+            padding: 2rem;
+            border-radius: 8px;
+        } 
+    
+    
+        .categories-bg {
+            background-color: rgba(51, 51, 51, 0.9);
+            color: #fff;
+            height: 100vh;
+        }
+    
+    
+    
+        .btn {
+            cursor: pointer;
+            background-color: rgb(37, 37, 37);
+            color: #27CDF2;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            border-radius: 15px;
+            text-align: center;
+            padding: 8px 10px;
+            width: 15rem;
+        }
+    
+        .btn:hover {
+            background-color: #6d7074;
+        }
+    </style>
 @endsection
 
 {{-- Il codice js deve essere posizionato dopo l'HTML del form per accedere agli elementi del form.  --}}
@@ -377,4 +496,6 @@
 
 
     }
+
+
 </script>
