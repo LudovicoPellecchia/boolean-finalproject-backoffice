@@ -11,10 +11,7 @@
 
         <div class="col-md-12">
             <div class="card-body  ">
-                <p class="description text-justify"> Ciao! Benvenuto nella pagina di accesso. Accedi al tuo account per
-                    iniziare a esplorare il nostro servizio. Se non hai ancora un account, puoi registrarne uno
-                    facilmente per accedere a tutte le nostre funzionalità. Siamo entusiasti di averti qui e di darti il
-                    benvenuto nella nostra community digitale.</p>
+                <p class="description text-justify"> Ciao! Benvenuto nella pagina di recupero password. Qui puoi reimpostare la tua password se l'hai dimenticata. Per iniziare, inserisci il tuo indirizzo email registrato e ti invieremo istruzioni su come procedere con il recupero della password. Assicurati di utilizzare l'indirizzo email associato al tuo account.</p>
 
             </div>
         </div>
@@ -29,8 +26,8 @@
                     <h4 class="mb-5 title" >Riemposta la tua Password</h4>
                     <!-- bootstrap card -->
                     {{-- ------------------- --}}
-                    <div class="card">
-                        <div class="card-header">{{ __('Reset Password') }}</div>
+                    <div class="bg-custom">
+                        <div class="card-header info mb-4">{{ __('Reset Password') }}</div>
         
                         <div class="card-body">
                             @if (session('status'))
@@ -43,10 +40,10 @@
                                 @csrf
         
                                 <div class="mb-4 row">
-                                    <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                                    <label for="email" class="col-md-4 col-form-label text-md-right info">{{ __('E-Mail Address') }}</label>
         
                                     <div class="col-md-6">
-                                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="Inserisci la tua Password" value="{{ old('email') }}" required autocomplete="email" autofocus>
         
                                         @error('email')
                                         <span class="invalid-feedback" role="alert">
@@ -56,9 +53,9 @@
                                     </div>
                                 </div>
         
-                                <div class="mb-4 row mb-0">
+                                <div class="mb-4 row mb-0 mt-5">
                                     <div class="col-md-6 offset-md-4">
-                                        <button type="submit" class="btn btn-primary">
+                                        <button type="submit" class="btn">
                                             {{ __('Send Password Reset Link') }}
                                         </button>
                                     </div>
