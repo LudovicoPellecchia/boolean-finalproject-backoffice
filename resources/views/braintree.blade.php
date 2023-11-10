@@ -27,6 +27,31 @@
     <button type="submit" class="btn btn-sm btn-success" id="submit-button">Submit payment</button>
 </form>
 
+<!-- Tabella per le sponsorizzazioni attive -->
+<div class="mt-4">
+    <h3>Sponsorizzazioni attive</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Prezzo</th>
+                <th>Data di Inizio</th>
+                <th>Data di Scadenza</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($activeSponsorships as $sponsorship)
+                <tr>
+                    <td>{{ $sponsorship->name }}</td>
+                    <td>{{ $sponsorship->price }}</td>
+                    <td>{{ $sponsorship->created_at }}</td>
+                    <td>{{ $sponsorship->end_date }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
+
 <script src="https://js.braintreegateway.com/web/dropin/1.32.0/js/dropin.min.js"></script>
 <script>
     var button = document.querySelector('#submit-button');
