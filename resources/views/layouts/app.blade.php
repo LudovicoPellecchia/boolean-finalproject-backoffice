@@ -59,7 +59,7 @@
                             <a class="nav-link" href="#">Le mie recensioni</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('token') }}">Sponsorizzazioni</a>
+                            <a class="nav-link" href="{{ route('form.show') }}">Sponsorizzazioni</a>
                         </li>
                     </ul>
 

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class BraintreeController extends Controller
 {
-    public function token(Request $request)
+    /*     public function token(Request $request)
     {
         $gateway = new Gateway([
             'environment' => env('BRAINTREE_ENVIRONMENT'),
@@ -53,6 +53,58 @@ class BraintreeController extends Controller
         } else {
             $clientToken = $gateway->clientToken()->generate();
             return view('braintree', ['token' => $clientToken]);
+        }
+    } */
+
+
+    // app/Http/Controllers/SponsorController.php
+
+
+    public function showForm()
+    {
+        return view('braintree');
+    }
+
+    public function submitForm(Request $request)
+    {
+
+
+        $validatedData = $request->validate([
+            'sponsor' => 'required|in:2.99,5.99,9.99',
+        ]);
+
+        $price = $validatedData['sponsor'];
+        $name = $this->mapValueToName($price);
+
+
+        $sponsor = Sponsor::create([
+            'name' => $name,
+            'price' => $price,
+            'premium' => true,
+        ]);
+
+        // Ottieni l'ID dell'utente attualmente autenticato
+        $userId = auth()->user()->id;
+
+        // Collega l'utente alla sponsorizzazione nella tabella ponte sponsor_user
+        $sponsor->users()->attach($userId);
+
+        return redirect()->back()->with('success', 'Pagamento avvenuto con successo!');
+    }
+
+
+
+    private function mapValueToName($value)
+    {
+        switch ($value) {
+            case '2.99':
+                return '24 ore';
+            case '5.99':
+                return '72 ore';
+            case '9.99':
+                return '144 ore';
+            default:
+                return 'Sconosciuto';
         }
     }
 }

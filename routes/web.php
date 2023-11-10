@@ -41,8 +41,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 
 // Rotta Braintree
-Route::any('/braintree', [BraintreeController::class, 'token'])->name('token')->middleware('auth');
+/* Route::any('/braintree', [BraintreeController::class, 'token'])->name('token')->middleware('auth');
+ */
 
+Route::get('/form', [BraintreeController::class, 'showForm'])->name('form.show');
+Route::post('/form', [BraintreeController::class, 'submitForm'])->name('form.submit');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
