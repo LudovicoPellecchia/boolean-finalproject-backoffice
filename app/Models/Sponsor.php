@@ -12,6 +12,7 @@ class Sponsor extends Model
     protected $fillable = [
         "name",
         "price",
+        "premium"
     ];
 
     public function users()

@@ -2,68 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sponsor;
 use Braintree\Gateway;
 use Illuminate\Http\Request;
+use App\Models\Sponsor;
 
 class BraintreeController extends Controller
 {
-    /*     public function token(Request $request)
-    {
-        $gateway = new Gateway([
-            'environment' => env('BRAINTREE_ENVIRONMENT'),
-            'merchantId' => env('BRAINTREE_MERCHANT_ID'),
-            'publicKey' => env('BRAINTREE_PUBLIC_KEY'),
-            'privateKey' => env('BRAINTREE_PRIVATE_KEY')
-        ]);
-
-        if ($request->input('nonce') != null) {
-            $nonceFromTheClient = $request->input('nonce');
-            $sponsorPlan = $request->input('sponsor_plan');
-
-            $planPrices = [
-                '24' => 2.99,
-                '72' => 5.99,
-                '144' => 9.99
-            ];
-
-            $amount = $planPrices[$sponsorPlan];
-
-            $result = $gateway->transaction()->sale([
-                'amount' => $amount,
-                'paymentMethodNonce' => $nonceFromTheClient,
-                'options' => [
-                    'submitForSettlement' => true
-                ]
-            ]);
-
-            if ($result->success) {
-                // Salva i dettagli dello sponsor nel database
-                $sponsor = new Sponsor();
-                $sponsor->name = $request->input('sponsor_name');
-                $sponsor->price = $amount;
-                $sponsor->premium = false; // Valore iniziale
-                $sponsor->save();
-
-                return view('user.index');
-            } else {
-                // Gestisci il caso in cui il pagamento non vada a buon fine
-                return redirect()->back()->with('error', 'Errore durante il pagamento.');
-            }
-        } else {
-            $clientToken = $gateway->clientToken()->generate();
-            return view('braintree', ['token' => $clientToken]);
-        }
-    } */
-
-
-    // app/Http/Controllers/SponsorController.php
-
-
     public function showForm()
     {
-        
-        $gateway = new \Braintree\Gateway([
+        $gateway = new Gateway([
             'environment' => env('BRAINTREE_ENVIRONMENT'),
             'merchantId' => env("BRAINTREE_MERCHANT_ID"),
             'publicKey' => env("BRAINTREE_PUBLIC_KEY"),
@@ -71,39 +18,65 @@ class BraintreeController extends Controller
         ]);
 
         $clientToken = $gateway->clientToken()->generate();
-        return view ('braintree',['token' => $clientToken]);
-    }    
-
-
-    
+        return view('braintree', ['token' => $clientToken]);
+    }
 
     public function submitForm(Request $request)
-    {
+{
+    $validatedData = $request->validate([
+        'sponsor' => 'required|in:2.99,5.99,9.99',
+    ]);
 
+    $price = $validatedData['sponsor'];
+    $name = $this->mapValueToName($price);
 
-        $validatedData = $request->validate([
-            'sponsor' => 'required|in:2.99,5.99,9.99',
-        ]);
+    // Inizializza il gateway di Braintree
+    $gateway = new Gateway([
+        'environment' => env('BRAINTREE_ENVIRONMENT'),
+        'merchantId' => env("BRAINTREE_MERCHANT_ID"),
+        'publicKey' => env("BRAINTREE_PUBLIC_KEY"),
+        'privateKey' => env("BRAINTREE_PRIVATE_KEY")
+    ]);
 
-        $price = $validatedData['sponsor'];
-        $name = $this->mapValueToName($price);
+    // Crea un token di pagamento
+    $paymentMethodNonce = $request->input('payment-method-nonce');
 
+    // Effettua il pagamento utilizzando il token di pagamento e il prezzo
+    $result = $gateway->transaction()->sale([
+        'amount' => $price,
+        'paymentMethodNonce' => $paymentMethodNonce,
+        'options' => [
+            'submitForSettlement' => true,
+        ],
+    ]);
+
+    if ($result->success) {
+        // Il pagamento è riuscito
+        $isPaymentSuccessful = true;
+    } else {
+        // Il pagamento è fallito
+        $isPaymentSuccessful = false;
+    }
+
+    if ($isPaymentSuccessful) {
+        // Crea un nuovo record sponsor solo se il pagamento è riuscito
         $sponsor = Sponsor::create([
             'name' => $name,
             'price' => $price,
-            'premium' => true,
+            'premium' => true, // Imposta sempre a true se il pagamento è riuscito
         ]);
 
         // Ottieni l'ID dell'utente attualmente autenticato
         $userId = auth()->user()->id;
 
-        // Collega l'utente alla sponsorizzazione nella tabella ponte sponsor_user
+        // Collega l'utente alla sponsorizzazione nella tabella ponte "sponsor_user"
         $sponsor->users()->attach($userId);
-
-        return redirect()->back()->with('success', 'Pagamento avvenuto con successo!');
     }
 
+    $message = $isPaymentSuccessful ? 'Pagamento avvenuto con successo!' : 'Pagamento fallito';
 
+    return redirect()->back()->with('message', $message);
+}
 
     private function mapValueToName($value)
     {

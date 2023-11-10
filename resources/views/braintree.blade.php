@@ -13,16 +13,25 @@
     </select>
 
     <div class="py-12">
-        <div id="dropin-container" style="display: flex;justify-content: center;align-items: center;"></div>
-        <div style="display: flex;justify-content: center;align-items: center; color: white">
+        <div id="dropin-container" style="display: flex; justify-content: center; align-items: center;"></div>
+        <div style="display: flex; justify-content: center; align-items: center; color: white">
+            @if(session('message'))
+                <div class="alert {{ session('message') === 'Pagamento avvenuto con successo!' ? 'alert-success' : 'alert-danger' }}" role="alert">
+                    {{ session('message') }}
+                </div>
+            @endif
+        </div>
     </div>
 
-    <a id="submit-button" class="btn btn-sm btn-success">Submit payment</a>
-
+    <input type="hidden" name="payment-method-nonce" id="payment-nonce">
+    <button type="submit" class="btn btn-sm btn-success" id="submit-button">Submit payment</button>
 </form>
 
+<script src="https://js.braintreegateway.com/web/dropin/1.32.0/js/dropin.min.js"></script>
 <script>
     var button = document.querySelector('#submit-button');
+    var form = document.querySelector('#payment-form');
+
     braintree.dropin.create({
         authorization: '{{$token}}',
         container: '#dropin-container'
@@ -31,11 +40,10 @@
             instance.requestPaymentMethod(function (err, payload) {
                 // Submit payload.nonce to your server
                 document.getElementById('payment-nonce').value = payload.nonce;
-                document.getElementById('payment-form').submit();
+                form.submit();
             });
         });
     });
 </script>
-
 
 @endsection
