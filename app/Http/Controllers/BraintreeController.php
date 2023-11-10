@@ -62,8 +62,20 @@ class BraintreeController extends Controller
 
     public function showForm()
     {
-        return view('braintree');
-    }
+        
+        $gateway = new \Braintree\Gateway([
+            'environment' => env('BRAINTREE_ENVIRONMENT'),
+            'merchantId' => env("BRAINTREE_MERCHANT_ID"),
+            'publicKey' => env("BRAINTREE_PUBLIC_KEY"),
+            'privateKey' => env("BRAINTREE_PRIVATE_KEY")
+        ]);
+
+        $clientToken = $gateway->clientToken()->generate();
+        return view ('braintree',['token' => $clientToken]);
+    }    
+
+
+    
 
     public function submitForm(Request $request)
     {
@@ -75,7 +87,6 @@ class BraintreeController extends Controller
 
         $price = $validatedData['sponsor'];
         $name = $this->mapValueToName($price);
-
 
         $sponsor = Sponsor::create([
             'name' => $name,
