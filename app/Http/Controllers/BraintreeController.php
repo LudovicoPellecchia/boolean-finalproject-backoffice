@@ -25,12 +25,6 @@ class BraintreeController extends Controller
             $query->where('user_id', auth()->user()->id);
         })->where('premium', true)->get();
 
-        // Calcola la data di scadenza basata sul valore numerico presente nella colonna 'name'
-        foreach ($activeSponsorships as $sponsorship) {
-            $hours = (int) $sponsorship->name; // Converti il valore da stringa a intero
-            $sponsorship->end_date = Carbon::now()->addHours($hours);
-        }
-
         return view('braintree', ['token' => $clientToken, 'activeSponsorships' => $activeSponsorships]);
     }
 
@@ -71,12 +65,19 @@ class BraintreeController extends Controller
             $isPaymentSuccessful = false;
         }
 
+
+
+        $hours = (int) $name; // Converti il valore da stringa a intero
+        $end_date = Carbon::now()->addHours($hours);
+
+
         if ($isPaymentSuccessful) {
             // Crea un nuovo record sponsor solo se il pagamento è riuscito
             $sponsor = Sponsor::create([
                 'name' => $name,
                 'price' => $price,
                 'premium' => true, // Imposta sempre a true se il pagamento è riuscito
+                'end_date' => $end_date
             ]);
 
             // Ottieni l'ID dell'utente attualmente autenticato
