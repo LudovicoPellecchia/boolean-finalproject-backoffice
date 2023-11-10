@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Braintree\Gateway;
 use Illuminate\Http\Request;
 use App\Models\Sponsor;
+use Carbon\Carbon;
 
 class BraintreeController extends Controller
 {
@@ -23,6 +24,12 @@ class BraintreeController extends Controller
         $activeSponsorships = Sponsor::whereHas('users', function ($query) {
             $query->where('user_id', auth()->user()->id);
         })->where('premium', true)->get();
+
+        // Calcola la data di scadenza basata sul valore numerico presente nella colonna 'name'
+        foreach ($activeSponsorships as $sponsorship) {
+            $hours = (int) $sponsorship->name; // Converti il valore da stringa a intero
+            $sponsorship->end_date = Carbon::now()->addHours($hours);
+        }
 
         return view('braintree', ['token' => $clientToken, 'activeSponsorships' => $activeSponsorships]);
     }
