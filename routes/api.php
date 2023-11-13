@@ -35,11 +35,11 @@ Route::get("specialization", [SpecializationController::class, "index"]);
 
 
 // rotta api che ritorna gli utenti che hanno una determinata categoria
-Route::get('/users/specialization/{categoryName?}', [ProfileController::class, "specializationUserFilter"] );
+Route::get('users/specialization/{id?}', [ProfileController::class, "filterUsersBySpecialization"]);
 
 
 //rotta api che invia al database i messaggi dal frontend
 Route::post("messages", [MessageController::class, "store"]);
 
 // rotta api per le recensioni
-Route::post('/reviews', [ReviewController::class, 'createReview']);
+Route::post('reviews', [ReviewController::class, 'createReview']);
