@@ -23,8 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('sponsor_user', function (Blueprint $table) {
-            $table->date('start_date')->format('d/m/Y');
-            $table->date('end_date')->format('d/m/Y');
+            $table->dropColumn('start_date');
+            
         });
     }
 };

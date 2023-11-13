@@ -43,7 +43,7 @@
                                 <div class="col-md-4">
                                     <div>
                                         <strong>Photo:</strong>
-                                        <img src="{{ asset('storage/' . $profile->photo) }}" alt="">
+                                        <img class="card-img-top" src="{{ asset('storage/' . $profile->photo) }}" alt="">
                                     </div>
                                 </div>
                                 <div class="col-md-8">
