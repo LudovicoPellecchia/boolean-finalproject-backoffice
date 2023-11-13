@@ -38,11 +38,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/user/{user}', [UserProfileController::class, 'update'])->name('user.update');
     //DELETE
     Route::delete('/user/{user}', [UserProfileController::class, 'destroy'])->name('user.destroy');
+    //Rotte Braintree
+    Route::get('/form', [BraintreeController::class, 'showForm'])->name('form.show');
+    Route::post('/form', [BraintreeController::class, 'submitForm'])->name('form.submit');
 });
-
-//Rotte Braintree
-Route::get('/form', [BraintreeController::class, 'showForm'])->name('form.show');
-Route::post('/form', [BraintreeController::class, 'submitForm'])->name('form.submit');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
