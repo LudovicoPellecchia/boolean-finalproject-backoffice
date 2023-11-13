@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\SpecializationController;
+use App\Http\Controllers\PremiumUserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReviewController;
@@ -43,3 +44,6 @@ Route::post("messages", [MessageController::class, "store"]);
 
 // rotta api per le recensioni
 Route::post('reviews', [ReviewController::class, 'createReview']);
+
+//Rotta per recuperare l'utente con valore premium true
+Route::get('/premium-users', [PremiumUserController::class, 'getPremiumUsers']);
