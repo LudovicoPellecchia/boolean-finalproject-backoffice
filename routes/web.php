@@ -5,7 +5,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\ProfileController as UserProfileController;
 use App\Http\Controllers\BraintreeController;
-use App\Http\Controllers\PremiumUserController;
+use App\Http\Controllers\User\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,7 +42,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //Rotte Braintree
     Route::get('/form', [BraintreeController::class, 'showForm'])->name('form.show');
     Route::post('/form', [BraintreeController::class, 'submitForm'])->name('form.submit');
+
+    //Rotte Reviews
+    Route::get('/reviews', [ReviewController::class, 'showReviews'])->name('user.reviews');
+
+    // Rotte Messaggi
+    Route::get('/messages', [MessageController::class, 'printMessages'])->name('user.messages');
 });
+
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -51,6 +60,3 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__ . '/auth.php';
-
-// Messages Route
-Route::get('/messages', [MessageController::class, 'printMessages'])->name('user.messages');
