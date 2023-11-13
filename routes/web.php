@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\ProfileController as UserProfileController;
 use App\Http\Controllers\BraintreeController;
+use App\Http\Controllers\PremiumUserController;
 
 /*
 |--------------------------------------------------------------------------
