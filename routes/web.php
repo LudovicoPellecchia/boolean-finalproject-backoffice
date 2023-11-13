@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\User\MessageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\ProfileController as UserProfileController;
@@ -50,3 +51,6 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__ . '/auth.php';
+
+// Messages Route
+Route::get('/messages', [MessageController::class, 'printMessages'])->name('user.messages');
