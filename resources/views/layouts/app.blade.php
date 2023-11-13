@@ -49,6 +49,18 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{url('/') }}">{{ __('Home') }}</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('user.index') }}">Il mio profilo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">I miei messaggi</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Le mie recensioni</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('token') }}">Sponsorizzazioni</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -70,7 +82,6 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ url('dashboard') }}">{{__('Dashboard')}}</a>
                                 <a class="dropdown-item" href="{{ url('profile') }}">{{__('Profile')}}</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

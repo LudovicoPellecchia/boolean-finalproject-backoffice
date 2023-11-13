@@ -17,7 +17,7 @@ use App\Http\Controllers\BraintreeController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('http://localhost:5174/');
 });
 
 Route::get('/dashboard', function () {
