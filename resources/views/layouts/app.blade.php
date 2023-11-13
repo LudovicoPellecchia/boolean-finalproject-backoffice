@@ -56,7 +56,7 @@
                             <a class="nav-link" href="#">I miei messaggi</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Le mie recensioni</a>
+                            <a class="nav-link" href="{{ route('user.reviews')}}">Le mie recensioni</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('form.show') }}">Sponsorizzazioni</a>

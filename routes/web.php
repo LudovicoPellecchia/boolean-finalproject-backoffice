@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\ProfileController as UserProfileController;
 use App\Http\Controllers\BraintreeController;
+use App\Http\Controllers\User\MessageController;
+use App\Http\Controllers\User\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +40,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //DELETE
     Route::delete('/user/{user}', [UserProfileController::class, 'destroy'])->name('user.destroy');
 });
+
+//Rotte Messaggi
+Route::get('/reviews', [ReviewController::class, 'showReviews'])->name('user.reviews');
+
 
 //Rotte Braintree
 Route::get('/form', [BraintreeController::class, 'showForm'])->name('form.show');
