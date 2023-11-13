@@ -9,6 +9,13 @@ class Sponsor extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        "name",
+        "price",
+        "premium",
+        "end_date"
+    ];
+
     public function users()
     {
         return $this->belongsToMany(User::class);

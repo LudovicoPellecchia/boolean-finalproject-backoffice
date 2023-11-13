@@ -39,10 +39,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/user/{user}', [UserProfileController::class, 'destroy'])->name('user.destroy');
 });
 
-
-// Rotta Braintree
-Route::any('/braintree', [BraintreeController::class, 'token'])->name('token')->middleware('auth');
-
+//Rotte Braintree
+Route::get('/form', [BraintreeController::class, 'showForm'])->name('form.show');
+Route::post('/form', [BraintreeController::class, 'submitForm'])->name('form.submit');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
