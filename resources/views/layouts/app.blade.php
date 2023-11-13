@@ -53,7 +53,7 @@
                             <a class="nav-link" href="{{ route('user.index') }}">Il mio profilo</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">I miei messaggi</a>
+                            <a class="nav-link" href="{{route('user.messages')}}">I miei messaggi</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Le mie recensioni</a>
