@@ -12,8 +12,8 @@ class MessageController extends Controller {
         // Ottengo l'utente autenticato
         $authenticatedUser = Auth::user(); 
         
-        // Recupero i messaggi associati all'utente autenticato, utilizzando la relazione definita nel model dell'utente
-        $userMessages = $authenticatedUser->messages; 
+        // Recupero i messaggi associati all'utente autenticato, ordinati per created_at
+        $userMessages = $authenticatedUser->messages()->orderBy('created_at', 'desc')->get(); 
 
         // Restituisco la view 'messages.blade.php', passando i messaggi come variabile
         return view('user.messages', compact('userMessages'));
