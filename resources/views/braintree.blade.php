@@ -84,7 +84,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($activeSponsorships as $sponsorship)
+                                @foreach ($activeSponsorships->sortByDesc('end_date') as $sponsorship)
                                     <tr>
                                         <td>{{ $sponsorship->name }}</td>
                                         <td>{{ $sponsorship->price }}</td>
