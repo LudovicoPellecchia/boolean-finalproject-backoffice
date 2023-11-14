@@ -12,7 +12,7 @@ class ReviewController extends Controller
 
         $authenticatedUser = Auth::user();
 
-        $userReviews = $authenticatedUser->reviews;
+        $userReviews = $authenticatedUser->reviews()->orderBy('created_at', 'desc')->get();
 
 
         return view('user.reviews', compact('userReviews'));

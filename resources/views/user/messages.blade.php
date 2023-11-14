@@ -14,6 +14,7 @@
                 <th scope="col">Cognome</th>
                 <th scope="col">Email</th>
                 <th scope="col">Testo</th>
+                <th scope="col">Data</th>
             </tr>
         </thead>
         <tbody>
@@ -25,19 +26,29 @@
 
                 <td>
                     @if(strlen($userMessage->description) > 50)
-                    <span class="short-text" id="short-{{ $loop->index }}">{{ substr($userMessage->description, 0, 50) }}...
-                        <a href="#" class="show-more" data-target="row-{{ $loop->index }}" data-short="short-{{ $loop->index }}">Leggi</a>
+                    <span class="short-text" id="short-{{ $loop->index }}">{{ substr($userMessage->description, 0, 50)
+                        }}...
+                        <a href="#" class="show-more" data-target="row-{{ $loop->index }}"
+                            data-short="short-{{ $loop->index }}">Leggi</a>
                     </span>
                     @else
                     <span class="full-text">{{ $userMessage->description }}</span>
                     @endif
                 </td>
+                <td>
+                    <div class="date-time">
+                        <span class="date">{{ $userMessage->created_at->format('d/m/Y') }}</span>
+                        <span class="time">{{ $userMessage->created_at->format('H:i:s') }}</span>
+                    </div>
+                </td>
+
             </tr>
             <tr class="hidden-row" id="row-{{ $loop->index }}" style="display:none;">
                 <td colspan="4">
                     <div class="card p-5 rounded-5">
-                        <span class="full-text" id="full-{{ $loop->index }}">{{ $userMessage->description }} <a href="#" class="show-less" style="display:none;"
-                                data-target="row-{{ $loop->index }}" data-short="short-{{ $loop->index }}">Nascondi</a>
+                        <span class="full-text" id="full-{{ $loop->index }}">{{ $userMessage->description }} <a href="#"
+                                class="show-less" style="display:none;" data-target="row-{{ $loop->index }}"
+                                data-short="short-{{ $loop->index }}">Nascondi</a>
                         </span>
                     </div>
                 </td>
@@ -100,11 +111,17 @@
 
 
 <style>
-    a{
+    a {
         text-decoration: none;
         text-align: end;
         display: inline-block;
         text-align: end
+    }
+
+
+    .time {
+        font-size: 0.8rem;
+        /* Dimensione per l'ora */
     }
 </style>
 @endsection

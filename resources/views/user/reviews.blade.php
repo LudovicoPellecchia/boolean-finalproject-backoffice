@@ -14,6 +14,7 @@
                 <th scope="col">Cognome</th>
                 <th scope="col">Testo</th>
                 <th scope="col">Voto</th>
+                <th scope="col">Data</th>
             </tr>
         </thead>
         <tbody>
@@ -30,6 +31,12 @@
                     @endif
                 </td>
                 <td>{{ $review->score}} / 5</td>
+                <td>
+                    <div class="date-time">
+                        <span class="date">{{ $review->created_at->format('d/m/Y') }}</span>
+                        <span class="time">{{ $review->created_at->format('H:i:s') }}</span>
+                    </div>
+                </td>
             </tr>
             <tr class="hidden-row" id="row-{{ $loop->index }}" style="display:none;">
                 <td colspan="4">
@@ -103,6 +110,11 @@
         text-align: end;
         display: inline-block;
         text-align: end
+    }
+
+    .time {
+        font-size: 0.8rem;
+        /* Dimensione per l'ora */
     }
 </style>
 @endsection
