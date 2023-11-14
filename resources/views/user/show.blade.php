@@ -7,8 +7,7 @@
     </div>
     <div class="row ">
         <div class="col-lg-4 col-12 categories-bg ">
-            <h2 class="username text-center">Amani Esseili</h2>
-
+            <h2 class="username text-center">{{$profile->user->name}} {{$profile->user->surname}}</h2>
             <div class="col-md-12">
                 <div class="card-body  ">
                     <p class="description text-justify"> Benvenuto nella pagina dei Dettagli del tuo Profilo. Questo spazio è
@@ -69,9 +68,9 @@
                                         <div>
                                             <strong>Skills:</strong> {{ $profile->skills }}
                                         </div>
-                                        <div>
+{{--                                         <div>
                                             <strong>Curriculum:</strong> {{ $profile->curriculum }}
-                                        </div>
+                                        </div> --}}
                                         <div>
                                             <strong>Visible:</strong> {{ $profile->visible ? 'Yes' : 'No' }}
                                         </div>
