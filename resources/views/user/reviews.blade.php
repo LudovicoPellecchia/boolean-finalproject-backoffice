@@ -112,10 +112,10 @@
 
     <style>
         body {
-            background-image: url(/bg-2.jpg);
-            background-size: cover;
-            background-attachment: fixed; //fissa il bg-img per evitare lo scrolling
+            background-image: url(/cybersbg.jpg);
+            background-size:auto;
             background-repeat: no-repeat;
+            overflow-x: hidden;
         }
 
         a {
