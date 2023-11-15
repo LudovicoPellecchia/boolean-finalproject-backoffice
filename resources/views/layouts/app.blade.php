@@ -45,16 +45,16 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{url('/') }}">{{ __('Home') }}</a>
+                            <a class="nav-link" href="{{ url('/') }}">{{ __('Home') }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('user.index') }}">Il mio profilo</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('user.messages')}}">I miei messaggi</a>
+                            <a class="nav-link" href="{{ route('user.messages') }}">I miei messaggi</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('user.reviews')}}">Le mie recensioni</a>
+                            <a class="nav-link" href="{{ route('user.reviews') }}">Le mie recensioni</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('form.show') }}">Sponsorizzazioni</a>
@@ -65,33 +65,34 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                        </li>
-                        @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                        </li>
-                        @endif
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            </li>
+                            @if (Route::has('register'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                </li>
+                            @endif
                         @else
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }}
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ url('profile') }}">{{__('Profile')}}</a>
-                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                    document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->name }}
                                 </a>
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
-                            </div>
-                        </li>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ url('profile') }}">{{ __('Profile') }}</a>
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
                         @endguest
                     </ul>
                 </div>
@@ -107,6 +108,21 @@
 <style>
     .navbar {
         --bs-navbar-color: white;
+        --bs-navbar-hover-color: #27cdf2;
+    }
+
+    .dropdown-menu {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        background-color: rgba(51, 51, 51, 0.6);
+    }
+
+    .dropdown-item {
+        color: white;
+        --bs-dropdown-link-hover-bg: #27cdf2;
+    }
+
+    .navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
+        color: #27cdf2;
     }
 </style>
 
