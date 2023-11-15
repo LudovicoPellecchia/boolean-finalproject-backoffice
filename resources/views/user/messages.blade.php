@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h2 class="mt-4">Visualizza la lista dei tuoi messaggi:</h2>
+        <h2 class="mt-4 text-light">Visualizza la lista dei tuoi messaggi:</h2>
 
         @if ($userMessages->isEmpty())
             <p class="alert alert-warning mt-4">Non hai ancora ricevuto messaggi.</p>
