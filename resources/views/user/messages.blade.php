@@ -44,7 +44,7 @@
 
                         </tr>
                         <tr class="hidden-row" id="row-{{ $loop->index }}" style="display:none;">
-                            <td colspan="4">
+                            <td colspan="5">
                                 <div class="card p-5 rounded-5">
                                     <span class="full-text" id="full-{{ $loop->index }}">{{ $userMessage->description }}
                                         <a href="#" class="show-less" style="display:none;"
