@@ -2,7 +2,7 @@
 
 @section('content')
     {{-- ------------ --}}
-    <div class="container-fluid">
+    <div class="container-fluid mt-3">
         <div class="row">
             <div class="col-12 col-lg-4 categories-bg text-center">
                 <header class="header">

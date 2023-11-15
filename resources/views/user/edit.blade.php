@@ -1,20 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-    {{-- ------------------- --}}
+{{-- ------------------- --}}
 
-    <div class="container-fluid ">
-
-    </div>
-    <div class="row ">
-        <div class="col-lg-4 col-12 categories-bg ">
-            <h2 class=" title mb-4 text-center">Completa il tuo profilo!</h2>
-
-        </div>
-        <div class="col-1"></div>
+<div class="container ">
+    <div class="row justify-content-center ">
 
 
-        <div class="col-lg-6 col-12 ">
+        <h1 class="text-center mt-4" style="color: #27CDF2">Completa il tuo profilo</h1>
+
+        <div class="col-lg-8 bg-form mt-4">
 
             <div class=" pt-2 ">
                 <div class="row justify-content-center">
@@ -30,14 +25,14 @@
 
                                 <label for="photo" class="form-label info">Photo<span class="info"> * </span>:</label>
                                 @if ($profile->photo)
-                                    <img src="{{ asset('/storage/' . $profile->photo) }}" alt=""
-                                        class="img-fluid border border-danger my-2 p-1" style="width: 100px">
+                                <img src="{{ asset('/storage/' . $profile->photo) }}" alt=""
+                                    class="img-fluid border border-danger my-2 p-1" style="width: 100px">
                                 @endif
                                 <input type="file" accept="image/*"
                                     class="form-control @error('photo') is-invalid @enderror" id="photo" name="photo">
 
                                 @error('photo')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
 
                                 <small id="photoHelp" class="form-text text-light">
@@ -49,12 +44,12 @@
                             {{-- Phone --}}
                             <div class="form-group mb-1 ">
                                 <label for="phone" class="form-label info">Phone<span class="info"> * </span>:</label>
-                                <input type="text" class="form-control @error('phone') is-invalid @enderror"
-                                    id="phone" placeholder="es. 1234567891" name="phone" value="{{ $profile->phone }}"
+                                <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone"
+                                    placeholder="es. 1234567891" name="phone" value="{{ $profile->phone }}"
                                     oninput="this.value = this.value.replace(/[^0-9]/g, '')">
 
                                 @error('phone')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
 
                                 <div>
@@ -72,13 +67,14 @@
                             {{-- Location --}}
                             <div class="form-group mb-1">
 
-                                <label for="location" class="form-label info">Location<span class="info"> * </span>:</label>
+                                <label for="location" class="form-label info">Location<span class="info"> *
+                                    </span>:</label>
                                 <input type="text" class="form-control @error('location') is-invalid @enderror"
-                                    id="location" placeholder="Inserisci la città in vui vivi attualmente" name="location"
-                                    value="{{ $profile->location }}">
+                                    id="location" placeholder="Inserisci la città in vui vivi attualmente"
+                                    name="location" value="{{ $profile->location }}">
 
                                 @error('location')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
 
                                 <div>
@@ -92,16 +88,16 @@
                                 </small>
 
                             </div>
-                            {{-- Skills  --}}
+                            {{-- Skills --}}
                             <div class="form-group mb-1">
 
-                                <label for="skills" class="form-label info">Skills<span class="info"> * </span>:</label>
+                                <label for="skills" class="form-label info">Prestazioni<span class="info"> * </span>:</label>
                                 <input type="text" class="form-control  @error('skills') is-invalid @enderror"
                                     id="skills" placeholder="Inserisci le tue competenze" name="skills"
                                     value="{{ $profile->skills }}">
 
                                 @error('skills')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
 
                                 <div>
@@ -115,7 +111,7 @@
                                 </small>
 
                             </div>
-                            {{-- Curriculum  --}}
+                            {{-- Curriculum --}}
                             <div class="form-group mb-1">
 
                                 <label for="curriculum" class="form-label info">Curriculum<span></span>:</label>
@@ -123,7 +119,7 @@
                                     name="curriculum">
 
                                 @error('curriculum')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
 
                                 <small id="curriculumHelp" class="form-text text-light">
@@ -146,11 +142,12 @@
                             <div class="form-group mb-1">
 
                                 <label for="description" class="form-label info">Description:</label>
-                                <textarea class="form-control @error('description') is-invalid @enderror" id="description"
-                                    placeholder="Inserisci una tua breve descrizione" name="description">{{ $profile->description }}</textarea>
+                                <textarea class="form-control @error('description') is-invalid @enderror"
+                                    id="description" placeholder="Inserisci una tua breve descrizione"
+                                    name="description">{{ $profile->description }}</textarea>
 
                                 @error('description')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
 
                                 <small id="descriptionHelp" class="form-text text-light">
@@ -162,19 +159,21 @@
                             </div>
                             {{-- Specializations --}}
                             <div class="form-group mb-2 specialization-bg">
-                                <label for="specializations" class="info">Specializations<span class="info"> * </span>: </label>
+                                <label for="specializations" class="info">Specializations<span class="info"> * </span>:
+                                </label>
 
                                 @foreach ($specializations as $specialization)
-                                    <input class="form-check-input @error('description') is-invalid @enderror"
-                                        type="checkbox" name="specializations[]" id="{{ $specialization->id }}"
-                                        value="{{ $specialization->id }}"
-                                        {{ $userSpecializations?->contains($specialization) ? 'checked' : '' }}>
-                                    <label class="form-check-label"
-                                        for="{{ $specialization->id }}">{{ $specialization->name }}</label>
+                                <input class="form-check-input @error('description') is-invalid @enderror"
+                                    type="checkbox" name="specializations[]" id="{{ $specialization->id }}"
+                                    value="{{ $specialization->id }}" {{
+                                    $userSpecializations?->contains($specialization) ?
+                                'checked' : '' }}>
+                                <label class="form-check-label" for="{{ $specialization->id }}">{{ $specialization->name
+                                    }}</label>
                                 @endforeach
 
                                 @error('specializations')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
 
                                 <div>
@@ -191,14 +190,16 @@
 
                             </div>
 
-                            {{-- Button  --}}
+                            {{-- Button --}}
                             <div class="pt-1 pb-2 text-center">
                                 <button type="submit" class="btn btn-primary btn-lg">CONFERMA</button>
                             </div>
 
                         </form>
 
-                        {{-- Il codice js deve essere posizionato dopo l'HTML del form per accedere agli elementi del form.  --}}
+                        {{-- Il codice js deve essere posizionato dopo l'HTML del form per accedere agli elementi del
+                        form.
+                        --}}
                         {{-- ------------------- --}}
 
                     </div>
@@ -208,7 +209,9 @@
 
         </div>
     </div>
-    </div>
+</div>
+
+</div>
 @endsection
 
 <script>
@@ -296,24 +299,19 @@
 
 <style>
     body {
-        background-image: url(/bg-2.jpg);
-        background-size: cover;
-        background-attachment: fixed; //fissa il bg-img per evitare lo scrolling
+        background-image: url(/cybersbg.jpg);
+        background-size: auto;
         background-repeat: no-repeat;
+        overflow-x: hidden;
+    }
+
+    .bg-form {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        border-radius: 40px;
+        background-color: rgba(51, 51, 51, 0.6);
     }
 
     /* aggiunge un overlay trasparente all'immagine di sfondo */
-    body::before {
-        content: "";
-        background: rgba(173, 171, 171, 0.5);
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-        /* Posiziona l'overlay dietro all'immagine di sfondo */
-    }
 
     .my-bg {
         background-color: rgba(173, 171, 171, 0.3);
@@ -325,14 +323,14 @@
         color: #27CDF2;
 
     }
-    .info{
+
+    .info {
         font-size: 1rem;
         color: #27CDF2;
         font-weight: bold
-
     }
 
-    .placeholder-font{
+    .placeholder-font {
         color: #b0b1b2;
     }
 
@@ -347,18 +345,19 @@
         padding: 2rem
     }
 
-    .specialization-bg{
+    .specialization-bg {
         background-color: rgba(51, 51, 51, 0.5);
         padding: 1rem;
         border-radius: 8px;
         color: #b0b1b2;
-    
+
     }
 
-    
+
 
 
     .categories-bg {
+        margin-top: 15px
         background-color: rgba(51, 51, 51, 0.9);
         color: #fff;
         height: 100vh;

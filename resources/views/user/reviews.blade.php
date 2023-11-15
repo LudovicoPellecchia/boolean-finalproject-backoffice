@@ -43,7 +43,7 @@
                         </tr>
                         <tr class="hidden-row" id="row-{{ $loop->index }}" style="display:none;">
                             <td colspan="5">
-                                <div class="card p-5 rounded-5">
+                                <div class="card p-5 rounded-5" style="background-color: rgba(51, 51, 51, 0.1);color: #fff;">
                                     <span class="full-text" id="full-{{ $loop->index }}">{{ $review->text }} <a
                                             href="#" class="show-less" style="display:none;"
                                             data-target="row-{{ $loop->index }}"
@@ -116,6 +116,7 @@
             background-size:auto;
             background-repeat: no-repeat;
             overflow-x: hidden;
+
         }
 
         a {
