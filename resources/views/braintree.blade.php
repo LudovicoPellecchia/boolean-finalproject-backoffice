@@ -246,6 +246,19 @@
         option {
             background-color: rgba(85, 84, 84, 0.9);
         }
+
+        .table {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .table th,
+        .table td {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            background-color: rgba(51, 51, 51, 0.6);
+            color: #fff;
+            border-color: grey;
+        }
     </style>
 
     <script src="https://js.braintreegateway.com/web/dropin/1.32.0/js/dropin.min.js"></script>
