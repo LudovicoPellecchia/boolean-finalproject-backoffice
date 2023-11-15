@@ -70,8 +70,6 @@
                                                 <li class="color-site fs-4"><strong>Competenze:</strong></li>
                                                 <h5>{{ $profile->skills }}</h5>
                                             
-                                                <li class="color-site fs-4"><strong>Visibile:</strong></li>
-                                                <h5>{{ $profile->visible ? 'Sì' : 'No' }}</h5>
                                             </ul>
                         
                                         </div>
