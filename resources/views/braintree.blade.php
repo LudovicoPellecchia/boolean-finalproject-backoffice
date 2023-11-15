@@ -9,7 +9,6 @@
                     <strong>
                         <h1 class="title">Cyber Security</h1>
                     </strong>
-
                     <p class="description ps-5 pe-5">
                         Cyber Security è il punto di riferimento per esperti di sicurezza
                         altamente qualificati. I nostri professionisti sono i guardiani
@@ -20,7 +19,6 @@
                         di sicurezza di Cyber Sentinel e preparati a essere al sicuro
                         online.
                     </p>
-                    <router-link to="/" class="btn">Torna Indietro</router-link>
                 </header>
 
             </div>
@@ -39,7 +37,7 @@
                             <form class="text-end" action="{{ route('form.submit') }}" method="post" id="payment-form">
                                 @csrf
 
-                                <label for="sponsor">Sponsor:</label>
+                                <label class="text-white" for="sponsor">Sponsor:</label>
                                 <select name="sponsor" id="sponsor">
                                     <option value="2.99">2.99$ per 24 ore</option>
                                     <option value="5.99">5.99$ per 72 ore</option>
@@ -123,11 +121,11 @@
         }
 
         .categories-bg {
-            background-color: rgba(51, 51, 51, 0.9);
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            background-color: rgba(51, 51, 51, 0.6);
+            border-top-right-radius: 40px;
             color: #fff;
-            height: 100vh;
         }
-
 
         /* ----------------------------------------- */
         .title {

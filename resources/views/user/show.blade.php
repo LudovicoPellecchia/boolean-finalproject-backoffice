@@ -79,13 +79,13 @@
                                         <div class="d-flex">
 
                                             <div class="mb-3 me-3 mt-5">
-                                                <a href="{{ route('user.edit', $profile->id) }}" class="btn">Modifica</a>
+                                                <a href="{{ route('user.edit', $profile->id) }}" class="btn btn-primary">Modifica</a>
                                             </div>
 
                                             <form action="{{ route('user.destroy', $profile->id) }}" method="post">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn mt-5"
+                                                <button type="submit" class="btn btn-primary mt-5"
                                                     onclick="return confirm('Sei sicuro di voler eliminare questo utente?')">Cancella</button>
                                             </form>
 
@@ -135,7 +135,9 @@
 
 
         .categories-bg {
-            background-color: rgba(51, 51, 51, 0.9);
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            background-color: rgba(51, 51, 51, 0.6);
+            border-top-right-radius: 40px;
             color: #fff;
         }
 
@@ -154,10 +156,6 @@
             border-radius: 50%;
             aspect-ratio: 1/1
         }
-
-        .profile-photo img {}
-
-
 
         .btn {
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -178,6 +176,13 @@
 
         .btn:hover {
             background-color: #6d7074;
+        }
+
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            background-color: rgba(51, 51, 51, 0.6);
+            border-top-right-radius: 40px;
+            color: #b0b1b2;
         }
     </style>
 @endsection
