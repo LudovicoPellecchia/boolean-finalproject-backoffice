@@ -26,7 +26,7 @@
     <div id="app">
 
 
-        <nav class="navbar navbar-expand-md navbar-light shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light shadow-sm" >
             <div class="container ">
                 <a class="navbar-brand d-flex align-items-center " href="{{ url('/') }}">
                     <div class="logo_laravel">
@@ -41,11 +41,11 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent" >
                     <!-- Left Side Of Navbar -->
                     
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
+                    <ul class="navbar-nav me-auto" >
+                        <li class="nav-item" >
                             <a class="nav-link" href="{{ url('/') }}">{{ __('Home') }}</a>
                         </li>
                         @auth
@@ -113,7 +113,7 @@
     .navbar {
         background-color: rgba(39, 205, 242, 0.1215686275);
         box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
-        --bs-navbar-color: white;
+        --bs-navbar-color:#b0b1b2;
         --bs-navbar-hover-color: #27cdf2;
     }
 
