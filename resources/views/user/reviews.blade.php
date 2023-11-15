@@ -105,6 +105,13 @@
 
 
 <style>
+
+body {
+    background-image: url(/bg-2.jpg);
+    background-size: cover;
+    background-attachment: fixed; //fissa il bg-img per evitare lo scrolling
+    background-repeat: no-repeat;
+}
     a{
         text-decoration: none;
         text-align: end;
