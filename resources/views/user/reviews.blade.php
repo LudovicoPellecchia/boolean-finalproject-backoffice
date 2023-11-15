@@ -142,5 +142,9 @@
             color: #fff;
             border-color: grey;
         }
+
+        .table th {
+            color: #27cdf2;
+        }
     </style>
 @endsection

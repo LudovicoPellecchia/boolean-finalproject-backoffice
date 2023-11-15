@@ -259,6 +259,9 @@
             color: #fff;
             border-color: grey;
         }
+        .table th {
+            color: #27cdf2;
+        }
     </style>
 
     <script src="https://js.braintreegateway.com/web/dropin/1.32.0/js/dropin.min.js"></script>
