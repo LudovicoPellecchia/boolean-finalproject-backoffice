@@ -43,7 +43,7 @@
 
                             {{-- Phone --}}
                             <div class="form-group mb-1 ">
-                                <label for="phone" class="form-label info">Phone<span class="info"> * </span>:</label>
+                                <label for="phone" class="form-label info">Numero di Telefono<span class="info"> * </span>:</label>
                                 <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone"
                                     placeholder="es. 1234567891" name="phone" value="{{ $profile->phone }}"
                                     oninput="this.value = this.value.replace(/[^0-9]/g, '')">
@@ -67,7 +67,7 @@
                             {{-- Location --}}
                             <div class="form-group mb-1">
 
-                                <label for="location" class="form-label info">Location<span class="info"> *
+                                <label for="location" class="form-label info">Località<span class="info"> *
                                     </span>:</label>
                                 <input type="text" class="form-control @error('location') is-invalid @enderror"
                                     id="location" placeholder="Inserisci la città in vui vivi attualmente"
@@ -130,7 +130,7 @@
                             {{-- Visible --}}
                             <div class="form-group mb-1">
 
-                                <label for="visible" class="form-label info">Visible<span></span>:</label>
+                                <label for="visible" class="form-label info">Profilo Visibile<span></span>:</label>
                                 <select type="select" class="form-select @error('visible') is-invalid @enderror"
                                     id="visible" name="visible" value="{{ $profile->visible }}">
                                     <option value="1" {{ $profile->visible == 1 ? 'selected' : '' }}>Si</option>
@@ -141,7 +141,7 @@
                             {{-- Description --}}
                             <div class="form-group mb-1">
 
-                                <label for="description" class="form-label info">Description:</label>
+                                <label for="description" class="form-label info">Descrizione:</label>
                                 <textarea class="form-control @error('description') is-invalid @enderror"
                                     id="description" placeholder="Inserisci una tua breve descrizione"
                                     name="description">{{ $profile->description }}</textarea>
