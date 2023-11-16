@@ -2,14 +2,13 @@
 
 @section('content')
     {{-- ------------ --}}
-    <div class="container-fluid">
+    <div class="container-fluid mt-3">
         <div class="row">
             <div class="col-12 col-lg-4 categories-bg text-center">
                 <header class="header">
                     <strong>
                         <h1 class="title">Cyber Security</h1>
                     </strong>
-
                     <p class="description ps-5 pe-5">
                         Cyber Security è il punto di riferimento per esperti di sicurezza
                         altamente qualificati. I nostri professionisti sono i guardiani
@@ -20,16 +19,15 @@
                         di sicurezza di Cyber Sentinel e preparati a essere al sicuro
                         online.
                     </p>
-                    <router-link to="/" class="btn">Torna Indietro</router-link>
                 </header>
 
             </div>
 
             <div class="col-lg-8 col-12">
                 <div class="row">
-                    <div class="col-6"></div>
+                    <div class="col-1"></div>
 
-                    <div class="col-5">
+                    <div class="col-11">
                         <header class="header text-center">
                             <h2 class="slogan text-end">Esperti di Sicurezza</h2>
                             <h4 class="slogan-font-color text-end mb-5">
@@ -39,17 +37,20 @@
                             <form class="text-end" action="{{ route('form.submit') }}" method="post" id="payment-form">
                                 @csrf
 
-                                <label for="sponsor">Sponsor:</label>
-                                <select name="sponsor" id="sponsor">
-                                    <option value="2.99">2.99$ per 24 ore</option>
-                                    <option value="5.99">5.99$ per 72 ore</option>
-                                    <option value="9.99">9.99$ per 144 ore</option>
-                                </select>
+                                <label class="text-white w-100 text-start" for="sponsor">Scegli la tua sponsorizzazione:</label>
+                                <div class="text-start select-style">
+                                    <select name="sponsor" id="sponsor">
+                                        <option value="2.99">2.99$ per 24 ore</option>
+                                        <option value="5.99">5.99$ per 72 ore</option>
+                                        <option value="9.99">9.99$ per 144 ore</option>
+                                    </select>
+                                </div>
+
 
                                 <div class="py-12 ">
                                     <div id="dropin-container"
-                                        style="display: flex; justify-content: end; align-items: center;"></div>
-                                    <div style="display: flex; justify-content: end; align-items: center; color: white">
+                                        style="display: flex; justify-content: center; align-items: center;"></div>
+                                    <div style="display: flex; justify-content: center; align-items: center; color: white">
                                         @if (session('message'))
                                             <div class="alert {{ session('message') === 'Pagamento avvenuto con successo!' ? 'alert-success' : 'alert-danger' }}"
                                                 role="alert">
@@ -60,8 +61,11 @@
                                 </div>
 
                                 <input type="hidden" name="payment-method-nonce" id="payment-nonce">
-                                <button type="submit" class="btn btn-sm btn-success" id="submit-button">Submit
-                                    payment</button>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-sm btn-success" id="submit-button">Submit
+                                        payment</button>
+                                </div>
+
                             </form>
                             {{-- -------fine pagamento ----------- --}}
                         </header>
@@ -73,7 +77,7 @@
                     <!-- Tabella per le sponsorizzazioni attive -->
                     <div class="col-1"></div>
                     <div class=" col-10 mt-4">
-                        <h3>Sponsorizzazioni attive</h3>
+                        <h3 style="color: #27cdf2">Sponsorizzazioni attive</h3>
                         <table class="table">
                             <thead>
                                 <tr>
@@ -115,32 +119,19 @@
         }
 
         body {
-            background-image: url(/bg-2.jpg);
-            background-size: cover;
-            background-attachment: fixed; //fissa il bg-img per evitare lo scrolling
+            background-image: url(/cybersbg.jpg);
+            background-size:auto;
             background-repeat: no-repeat;
-
-        }
-
-        /* aggiunge un overlay trasparente all'immagine di sfondo */
-        body::before {
-            content: "";
-            background: rgba(173, 171, 171, 0.5);
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            /* Posiziona l'overlay dietro all'immagine di sfondo */
+            overflow-x: hidden;
         }
 
         .categories-bg {
-            background-color: rgba(51, 51, 51, 0.9);
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            background-color: rgba(51, 51, 51, 0.6);
+            border-top-right-radius: 40px;
+            border-bottom-right-radius: 40px;
             color: #fff;
-            height: 100vh;
         }
-
 
         /* ----------------------------------------- */
         .title {
@@ -184,6 +175,17 @@
 
         .btn:hover {
             background-color: #6d7074;
+        }
+
+        .select-style select{
+            margin-top: 5px;
+            border-radius: 10px;
+            padding: 5px 10px;
+            
+        }
+
+        .select-style select option{
+            color: white
         }
 
         /*----- Stile per il contenitore con uno scroll orizzontale -------*/
@@ -245,6 +247,23 @@
 
         option {
             background-color: rgba(85, 84, 84, 0.9);
+        }
+
+        .table {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .table th,
+        .table td {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            background-color: rgba(51, 51, 51, 0.6);
+            color: #fff;
+            border-color: grey;
+        }
+
+        .table th {
+            color: #27cdf2;
         }
     </style>
 
