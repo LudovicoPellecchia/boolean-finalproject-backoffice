@@ -62,10 +62,7 @@ class SpecializationsTableSeeder extends Seeder
                 "name" => "Security engineer",
                 "description" => "Gli architetti di sicurezza sono esperti nella progettazione di soluzioni di sicurezza avanzate per proteggere dati e infrastrutture. Progettano sistemi di sicurezza complessi e sviluppano politiche di sicurezza per organizzazioni. Contribuiscono a garantire che le organizzazioni rimangano sicure da minacce informatiche."
             ],
-            [
-                "name" => "Chief Information Security Officer, CISO)",
-                "description" => "Il Responsabile della Sicurezza delle Informazioni (CISO) è il massimo dirigente aziendale responsabile della strategia e delle politiche di sicurezza informatica all'interno di un'organizzazione. Supervisiona l'intera strategia di sicurezza, gestisce risorse e personale specializzato e garantisce la protezione dei dati aziendali da minacce interne ed esterne."
-            ]
+
         ];
 
         foreach ($specializations as $specialization){
