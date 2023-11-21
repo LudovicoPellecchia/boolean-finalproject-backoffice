@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Specialization;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -20,7 +21,9 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        $specializations = Specialization::all();
+        
+        return view('auth.register', compact('specializations'));
     }
 
     /**
@@ -32,20 +35,32 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'surname' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+            'location' => ['required', 'string', 'max:255'],
+            'specializations' => ['required','array'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+
         ]);
 
         $user = User::create([
             'name' => $request->name,
+            'surname' => $request->surname,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
+        $user->profile()->create([
+            'location' => $request->location,
+            'phone' => '',
+        ]);
+
+        $user->specializations()->attach($request["specializations"]);
+
         event(new Registered($user));
 
         Auth::login($user);
-
-        return redirect(RouteServiceProvider::HOME);
+        // return redirect(RouteServiceProvider::HOME);
+        return redirect('/user/' .  $user->profile->id . '/edit');
     }
 }

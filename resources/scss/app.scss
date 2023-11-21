@@ -1,1 +1,11 @@
-@import '~bootstrap/scss/bootstrap'
+@import '~bootstrap/scss/bootstrap';
+
+::-webkit-scrollbar{
+    background: #1e3240ea;
+}
+::-webkit-scrollbar-thumb{
+    border-radius: 100px;
+}
+::-webkit-scrollbar-thumb:hover{
+    background-color:  #27cdf23b;
+}

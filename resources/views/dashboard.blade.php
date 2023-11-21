@@ -18,7 +18,12 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+                    <div>
+                        <a href="{{ route('user.index') }}" class="btn btn-primary">Il mio profilo</a>
+                        <a href="{{ route('token') }}" class="btn btn-primary">Pagamento</a>
+                    </div>
                 </div>
+                
             </div>
         </div>
     </div>
